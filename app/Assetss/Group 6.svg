@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42" height="58" viewBox="0 0 42 58">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-3 {
+        stroke: #2bc5c1;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #2bc5c1;
+      }
+
+      .cls-3, .cls-5 {
+        fill: none;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="Group_6" data-name="Group 6" transform="translate(-162.559 -174.257)">
+    <g id="Rectangle_14" data-name="Rectangle 14" class="cls-1" transform="translate(162.559 180.257)">
+      <rect class="cls-4" width="42" height="52" rx="6"/>
+      <rect class="cls-5" x="1" y="1" width="40" height="50" rx="5"/>
+    </g>
+    <rect id="Rectangle_15" data-name="Rectangle 15" class="cls-2" width="22" height="7" rx="3.5" transform="translate(172.559 177.257)"/>
+    <circle id="Ellipse_2" data-name="Ellipse 2" class="cls-2" cx="4" cy="4" r="4" transform="translate(179.559 174.257)"/>
+    <g id="Icon_feather-refresh-cw" data-name="Icon feather-refresh-cw" transform="translate(175.063 196.759)">
+      <path id="Path_19" data-name="Path 19" class="cls-3" d="M29.831,6v4.331H25.5" transform="translate(-12.451 -0.776)"/>
+      <path id="Path_20" data-name="Path 20" class="cls-3" d="M1.5,25.331V21H5.831" transform="translate(0 -8.558)"/>
+      <path id="Path_21" data-name="Path 21" class="cls-3" d="M3.312,8.833A6.5,6.5,0,0,1,14.031,6.407L17.38,9.554M1.5,12.442l3.349,3.147a6.5,6.5,0,0,0,10.719-2.425"/>
+    </g>
+  </g>
+</svg>

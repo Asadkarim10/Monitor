@@ -1,0 +1,6 @@
+module Pods_Monitor {
+  umbrella header "Pods-Monitor-umbrella.h"
+
+  export *
+  module * { export * }
+}
