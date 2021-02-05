@@ -17,7 +17,7 @@ class Settings extends Component {
                 <View style={{
                     flex: .7,
                 }}>
-                    <Header navigation = {this.props.navigation} />
+                    <Header navigation={this.props.navigation} />
                 </View>
                 <View style={{
                     flex: .7,
@@ -28,13 +28,13 @@ class Settings extends Component {
                     justifyContent: 'flex-start',
                     alignItems: 'center'
                 }}>
-             <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')}>
 
-                    <AntDesign
-                        name="left" size={20} /> 
+                        <AntDesign
+                            name="left" size={20} />
 
-</TouchableOpacity>
-  
+                    </TouchableOpacity>
+
                     <Text style={{
                         fontSize: 20,
                         paddingLeft: 20
@@ -56,7 +56,8 @@ class Settings extends Component {
                         <View style={{
                             flexDirection: 'row',
                             width: wp('90%'),
-                            height: hp('5%'),
+                            //height: hp('5%'),
+                            height: 45,
                             alignSelf: 'center',
                             alignItems: 'center',
                             justifyContent: 'space-between',

@@ -1,13 +1,97 @@
-
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity,TextInput, ImageBackground, Image, ScrollView } from 'react-native'
 //import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../components/Header'
+import { connect } from "react-redux";
 import ToggleSwitchs from '../components/ToggleSwitch'
+import RestDialogBox from "../components/RestDialogBox";
+import { callAPI } from "../api";
+import { restAction, API_CONTS, storeData } from "../actions/constant";
+
+
 
 class EmergencyMessage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+        EmergencyMessage: null,
+        
+       
+    }
+}
+
+handleChange(event) {
+  const {EmergencyMessage} = event;
+  let processedData = text;
+  if(type==='text') {
+      processedData = value.toUpperCase();
+  } else if (type==='number') {
+      processedData = value * 2;
+  }
+  this.setState({[EmergencyMessage]: processedData})
+}
+
+
+
+
+Save = () => {
+ 
+  try {
+    const restInit = {
+      IS_LOADING: true,
+      RETURN: false,
+      IS_RETURN: false,
+      RETURN_MESSAGE: "Something wrong",
+    }
+    this.props.restAction(restInit);
+    const postsData = callAPI(API_CONTS.LOGIN, "post", {
+      "EmergencyMessage": this.state.EmergencyMessage,
+    }).then(res => {
+      restInit.IS_LOADING = false;
+      restInit.RETURN_MESSAGE = res.message;
+      restInit.IS_RETURN = true;
+      restInit.RETURN = res.return;
+      if (res.return === false) {
+        this.props.restAction(restInit);
+      } else {
+        const authUserInit = {
+          userType: res.users.usertype,
+          authToken: res.token,
+          userAuthenticates: true,
+          id: res.users.id,
+          user: res.users
+        }
+        restInit.IS_RETURN = false;
+        this.setUserData(authUserInit);
+        this.props.restAction(restInit);
+        this.props.authUser(authUserInit)
+      }
+    });
+  } catch (error) {
+    this.props.restAction(
+      {
+        IS_LOADING: false,
+        IS_RETURN: true,
+        RETURN: false,
+        RETURN_MESSAGE: "Network request failed"
+      });
+
+  }
+}
+setUserData = async (authUserInit) => {
+  await storeData("EmergencyMessage", authUserInit.EmergencyMessage);
+  updateAPIConfig(authUserInit.authToken);
+  
+}
+
+
+
+
+
+
+
   render() {
     return (
       <View style={{
@@ -89,8 +173,10 @@ class EmergencyMessage extends Component {
 
           }}>
             <TextInput 
-            placeholder="Hi, I am not feeling well.Please come at my location ASAP! "
+  name="username" type="text" value={this.state.username} onChange={this.handleChange}        
+  placeholder="Hi, I am not feeling well.Please come at my location ASAP! "
             placeholderTextColor="black"
+            
             fontWeight="500"
             multiline={true}
             />
@@ -107,7 +193,8 @@ class EmergencyMessage extends Component {
           
         }}>
             <Text style = {{
-              color:'#807f80'
+              color:'#807f80',
+              fontWeight:'800'
             }}>50/160</Text>
         </View>
 
@@ -146,7 +233,8 @@ class EmergencyMessage extends Component {
         height:hp("17%"),
         justifyContent:'center'
       }}>
-          <TouchableOpacity style = {{
+          <TouchableOpacity   onPress={() => this.Save()}
+          style = {{
               width:wp('55%'),
               height:hp('5%'),
               alignSelf:'center',
@@ -163,7 +251,8 @@ class EmergencyMessage extends Component {
           </TouchableOpacity>
       </View>
 
-        
+      <RestDialogBox />
+
 
         
       </View>
@@ -171,4 +260,15 @@ class EmergencyMessage extends Component {
   }
 }
 
-export default EmergencyMessage;
+const mapStateToProps = state => ({
+  rest: state.rest,
+});
+
+const mapDispatchToProps = dispatch => ({
+  restAction: payload => dispatch(restAction(payload))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmergencyMessage);

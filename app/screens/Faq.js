@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import ToggleSwitchs from '../components/ToggleSwitch'
 
 class Faq extends Component {
+  
   render() {
     return (
       <View style={{

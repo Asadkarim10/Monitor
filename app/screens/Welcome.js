@@ -9,19 +9,19 @@ import Header from '../components/Header'
 import Rental from '../components/Rental'
 import YourProperties from '../components/YourProperties'
 
-class Welcome extends Component {
-  render() {
+class Welcome extends Component { 
+
+
+ 
+  render() {  
     return (
       <View style={styles.container}>
-
-
-
         <StatusBar
           barStyle="dark-content"
           // dark-content, light-content and default
           hidden={false}
           //To hide statusBar
-          backgroundColor="white"
+          backgroundColor="blue"
           //Background color of statusBar only works for Android
           // translucent = {false}
           //allowing light, but not detailed shapes
@@ -45,7 +45,7 @@ class Welcome extends Component {
 
           }}>
 
-
+          
 
                 <Text
                   style={{
@@ -81,7 +81,9 @@ class Welcome extends Component {
              <View style = {{
                width:wp('22%'),
                backgroundColor:'#1f6eaa',
-               height:hp('7.2%'),
+            //   height:hp('7.2%'),
+               height:63,
+               
               //  borderTopleftRadius:20,
               //  borderBottomleftRadius:20,
                justifyContent:"center",
@@ -112,7 +114,8 @@ class Welcome extends Component {
                borderTopRightRadius:5,
                borderBottomRightRadius:5,
                justifyContent:'center',
-                height:hp('7%'),
+             //   height:hp('7%'),
+                height:63,
                 shadowColor: "#000",
 shadowOffset: {
 	width: 0,
@@ -141,6 +144,7 @@ elevation: 5,
             width:wp('90%'),
             marginTop:10,
            // height:hp('7%'),
+          //  height:6,
             alignSelf:'center',
               flexDirection:'row',
 
@@ -150,6 +154,8 @@ elevation: 5,
                width:wp('22%'),
                backgroundColor:'#1f6eaa',
                height:hp('7.2%'),
+               height:63,
+
               //  borderTopleftRadius:20,
               //  borderBottomleftRadius:20,
                justifyContent:"center",
@@ -180,7 +186,9 @@ elevation: 5,
                borderTopRightRadius:5,
                borderBottomRightRadius:5,
                justifyContent:'center',
-                height:hp('7%'),
+               // height:hp('7%'),
+                height:63,
+
                 shadowColor: "#000",
 shadowOffset: {
 	width: 0,
@@ -215,7 +223,8 @@ elevation: 5,
              <View style = {{
                width:wp('22%'),
                backgroundColor:'#1f6eaa',
-               height:hp('7.2%'),
+            //   height:hp('7.2%'),
+               height:63,
               //  borderTopleftRadius:20,
               //  borderBottomleftRadius:20,
                justifyContent:"center",
@@ -246,7 +255,9 @@ elevation: 5,
                borderTopRightRadius:5,
                borderBottomRightRadius:5,
                justifyContent:'center',
-                height:hp('7%'),
+              //  height:hp('7%'),
+                height:62,
+
                 shadowColor: "#000",
 shadowOffset: {
 	width: 0,

@@ -1,8 +1,6 @@
 import { put, call, takeEvery, takeLatest, select, delay } from 'redux-saga/effects';
-
 import { AUTH, restAction, API_CONTS, RESTHELPER_RESET, RESTHELPER_VALUE } from "../actions/constant";
 import { authUser, logout } from "../actions/authAction";
-
 import { callAPI, updateAPIConfig, getAPIConfig } from '../api';
 import {getData , storeData, removeData } from '../actions/constant';
 
@@ -62,19 +60,21 @@ async function logoutData() {
 
 
 async function setUserData( authUserInit ) {
-  await storeData("userAuthenticates", authUserInit.userAuthenticates);
-  await storeData("userType", authUserInit.userType);
-  await storeData("authToken", authUserInit.authToken);
-  await storeData("id", authUserInit.id);
-  await storeData("user", JSON.stringify(authUserInit.user));
-  updateAPIConfig(authUserInit.authToken);
+  await storeData("name", authUserInit.name);
+  await storeData("number", authUserInit.number);
 }
 
 
 async function getUserToken(  ) {
-  const authToken = await getData("authToken" );
+  const authToken = await getData("name" );
   updateAPIConfig(authToken);
 }
+
+// // async function getUserToken(  ) {
+// //   const authToken = await getData("number" );
+// //   updateAPIConfig(authToken);
+// }
+
 
 export function* loginValid(action) {
   try {

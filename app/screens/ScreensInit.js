@@ -21,6 +21,8 @@ import GoodEvening from '../components/GoodEvening'
 import EverythingOk from '../components/EverythingOk'
 import TimePicker from '../components/TimePicker'
  import AboutUs from './AboutUs'
+ import Practice from './Practice'
+
  import Splash from './SplashScreen';
 import AutomaticReporting from './AutomaticReporting'
 import RestDialogBox from '../components/RestDialogBox'
@@ -74,6 +76,8 @@ const StackRoutes = ({ navigation }) => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="TimePicker" component={TimePicker} />
       <Stack.Screen name="TopSheet" component={TopSheet} />
+      <Stack.Screen name="Practice" component={Practice} />
+
 
 
       

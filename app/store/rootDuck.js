@@ -6,10 +6,6 @@ import { restReducer }  from "../reducers/restReducer";
 import { countryReducer }  from "../reducers/countryReducer";
 import { bookingReducer }  from "../reducers/bookingReducer";
 import { usersReducer }  from "../reducers/usersReducer";
-
-
-
-
 import authSaga from '../sagas/authSaga';
 import countrySaga from '../sagas/countrySaga';
 import bookingSaga from '../sagas/bookingSaga';

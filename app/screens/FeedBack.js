@@ -25,7 +25,7 @@ class FeedBack extends Component {
     }
   }
 
-  loginClick = () => {
+  SaveFeedback = () => {
     try {
 
       const restInit = {
@@ -36,14 +36,13 @@ class FeedBack extends Component {
       }
       this.props.restAction(restInit);
       const postsData = callAPI(API_CONTS.LOGIN, "post", {
-        "username": this.state.email, "password": this.state.password
+        "Fullname": this.state.email, "Email": this.state.Email, "FeedBack": this.state.FeedBack
       }).then(res => {
         restInit.IS_LOADING = false;
         restInit.RETURN_MESSAGE = res.message;
         restInit.IS_RETURN = true;
         restInit.RETURN = res.return;
         if (res.return === false) {
-          this.props.logout();
           this.props.restAction(restInit);
         } else {
           const authUserInit = {
@@ -71,11 +70,11 @@ class FeedBack extends Component {
     }
   }
   setUserData = async (authUserInit) => {
-    await storeData("authToken", authUserInit.authToken);
+    await storeData("name", authUserInit.name);
     updateAPIConfig(authUserInit.authToken);
     await storeData("userAuthenticates", authUserInit.userAuthenticates);
-    await storeData("userType", authUserInit.userType);
-    await storeData("id", authUserInit.id);
+    await storeData("Email", authUserInit.Email);
+    await storeData("FeedBack", authUserInit.FeedBack);
     await storeData("user", JSON.stringify(authUserInit.user));
   }
 
@@ -188,7 +187,7 @@ class FeedBack extends Component {
           height:hp('20%'),
           justifyContent:'center',
         }}>
-            <TouchableOpacity    onPress={this.loginClick}
+            <TouchableOpacity    onPress={() => this.SaveFeedback()}
             style = {{
               backgroundColor:'#2DC040',
               width:wp('50%'),

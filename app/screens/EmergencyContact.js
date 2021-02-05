@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,TextInput  , ImageBackground, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,TextInput  , ImageBackground, Image, ScrollView, Alert } from 'react-native'
 //import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -9,88 +9,82 @@ import Header from '../components/Header'
 import { restAction, API_CONTS, storeData } from "../actions/constant";
 import ContactDetails from '../components/ContactDetails';
 import RBSheet from "react-native-raw-bottom-sheet";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { connect } from "react-redux";
+
+import { StatusBar } from 'react-native'
+import Checkboxs from '../components/Checkboxs'
+import RestDialogBox from "../components/RestDialogBox";
+import { callAPI } from "../api";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 class EmergencyContact extends Component {
   constructor(props) {
     super(props);
-  this.state = {
-    items:"loading"
-   
+    this.state = {
+        name: null,
+        number: null,
+       
+    }
+}
+
+Save = () => {
+ 
+  try {
+    const restInit = {
+      IS_LOADING: true,
+      RETURN: false,
+      IS_RETURN: false,
+      RETURN_MESSAGE: "Something wrong",
+    }
+    this.props.restAction(restInit);
+    const postsData = callAPI(API_CONTS.LOGIN, "post", {
+      "name": this.state.name, "number": this.state.number
+    }).then(res => {
+      restInit.IS_LOADING = false;
+      restInit.RETURN_MESSAGE = res.message;
+      restInit.IS_RETURN = true;
+      restInit.RETURN = res.return;
+      if (res.return === false) {
+        this.props.restAction(restInit);
+      } else {
+        const authUserInit = {
+          userType: res.users.usertype,
+          authToken: res.token,
+          userAuthenticates: true,
+          id: res.users.id,
+          user: res.users
+        }
+        restInit.IS_RETURN = false;
+        this.setUserData(authUserInit);
+        this.props.restAction(restInit);
+        this.props.authUser(authUserInit)
+      }
+    });
+  } catch (error) {
+    this.props.restAction(
+      {
+        IS_LOADING: false,
+        IS_RETURN: true,
+        RETURN: false,
+        RETURN_MESSAGE: "Network request failed"
+      });
 
   }
+}
+setUserData = async (authUserInit) => {
+  await storeData("name", authUserInit.authToken);
+  updateAPIConfig(authUserInit.authToken);
+  await storeData("number", authUserInit.userAuthenticates);
+  
 }
 
 
 
 
-
-
-  
-  
   render() {
-
-  
-
-  
-
-
-
-    OnClick = () => {
-      try {
-  
-        const restInit = {
-          IS_LOADING: true,
-          RETURN: false,
-          IS_RETURN: false,
-          RETURN_MESSAGE: "Something wrong",
-        }
-        this.props.restAction(restInit);
-        const postsData = callAPI(API_CONTS.LOGIN, "post", {
-          "username": this.state.AddContact, "password": this.state.password
-        }).then(res => {
-          restInit.IS_LOADING = false;
-          restInit.RETURN_MESSAGE = res.message;
-          restInit.IS_RETURN = true;
-          restInit.RETURN = res.return;
-          if (res.return === false) {
-            this.props.logout();
-            this.props.restAction(restInit);
-          } else {
-            const authUserInit = {
-              userType: res.users.usertype,
-              authToken: res.token,
-              userAuthenticates: true,
-              id: res.users.id,
-              user: res.users
-            }
-            restInit.IS_RETURN = false;
-            this.setUserData(authUserInit);
-            this.props.restAction(restInit);
-            this.props.authUser(authUserInit)
-          }
-        });
-      } catch (error) {
-        this.props.restAction(
-          {
-            IS_LOADING: false,
-            IS_RETURN: true,
-            RETURN: false,
-            RETURN_MESSAGE: "Network request failed"
-          });
-  
-      }
-    }
-    setUserData = async (authUserInit) => {
-      await storeData("keys", authUserInit.authToken);
-      updateAPIConfig(authUserInit.authToken);
-      await storeData("keyss", authUserInit.userAuthenticates);
-      
-    }
-
-
+    
 
     return (
       <View style={{
@@ -167,11 +161,7 @@ style = {{
               paddingLeft:10
 
             }}>Danial</Text>
-             <SvgUri
-    width="200"
-    height="200"
-    svgXmlData={testSvg}
-  />
+            
  <Image
           source={require('../assets/test.png')}  />    
                </View>
@@ -244,7 +234,6 @@ style = {{
         />       
           </View>
 </TouchableOpacity>
-<Text> {this.state.storeData} </Text>
 </View>
 
 <RBSheet
@@ -293,6 +282,10 @@ style = {{
         }}>
             <TextInput  
             placeholder="e.g Danial"
+            onChangeText={(text) =>
+              this.setState({ name: text })
+          }
+          value={this.state.name}
             placeholderTextColor="#adadad"
             style={{
                 paddingLeft:20,
@@ -324,6 +317,10 @@ style = {{
             <TextInput  
             placeholder="e.g ,+1 1234 567 890"
             placeholderTextColor="#adadad"
+            onChangeText={(text) =>
+              this.setState({ number: text })
+          }
+          value={this.state.number}
 
 
             style={{
@@ -337,19 +334,32 @@ style = {{
 
 
         <View style={styles.ridesFriends}>
-    <TouchableOpacity onPress={this.setUserData}>
+    <TouchableOpacity onPress={() => this.Save()}>
     <Text style={styles.numbers}>Set</Text>
    </ TouchableOpacity>
     <View style={styles.verticleLine}></View>
     <Text style={styles.numbers}>Cancel</Text>
  </View>
         </RBSheet>
+        <RestDialogBox />
+
       </View>
     );
   }
 }
 
-export default EmergencyContact;
+const mapStateToProps = state => ({
+  rest: state.rest,
+});
+
+const mapDispatchToProps = dispatch => ({
+  restAction: payload => dispatch(restAction(payload))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(EmergencyContact);
 
 
 const styles = StyleSheet.create({
