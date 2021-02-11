@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useRef } from 'react';
 import { View, Text, StyleSheet,Linking, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
 //import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -8,8 +8,136 @@ import Issues from '../components/Issues';
 import Header from '../components/Header'
 import Rental from '../components/Rental'
 import YourProperties from '../components/YourProperties'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getData } from '../actions/constant';
+
+
 
 class Welcome extends Component { 
+  constructor(props){
+    super(props);
+    this.state = { 
+        user:'',
+        
+      
+    }
+  }
+
+ 
+  componentDidMount(){
+    getData();
+  }
+
+
+ 
+  // getUser = async (  ) => {
+  //       const userAuthenticates = await getData("authUserInit" );    
+  //         if ( userAuthenticates === "true" ){
+  //       const userType = await getData("name" );
+  //        const authToken = await getData("number" );
+  //       const id = await getData("id" );
+  //        const user = await getData("user" );
+  //         const authUserInit = {
+  //             userType,
+  
+  //         }
+  //       }}
+  
+  // getUserData = async (  ) => {
+  //   const userName = await getData("name" );    
+  //   const userNumber = await getData("number" );    
+
+  //   this.setState({user:userName})
+
+    // if ( userAuthenticates === "true" ){
+    // const userName = await getData("name" );
+    // const userNumber = await getData("authToken" );
+    // const id = await getData("id" );
+    // const user = await getData("user" );
+  //     const authUserInit = {
+  //       userType,
+  //       authToken,
+  //       userAuthenticates: true,
+  //       id,
+  //       user: JSON.parse(user)
+  //     }
+  //     this.props.authUser(authUserInit)
+  //   }
+
+  //   setTimeout( () => {
+  //     this.props.validateLogin()
+  //   }, 1500 )
+
+ 
+   
+
+
+
+
+
+  
+    // getData = async () => {
+    //   try {
+    //     let user = await AsyncStorage.getItem('name')
+       
+    //     this.setState({ name:user.name })
+    //   alert(user.name)
+
+        
+    //   } 
+      
+     
+    //   catch(e) {
+    //     console.log(e)
+    //   }
+    // }
+
+    // async componentDidMount() {
+    //     try {
+    //       let user = await  AsyncStorage.getItem('name')
+         
+    //       this.setState({ name:user })
+    //     alert(this.state.name)
+    //     // console.log(JSON.parse(user[0]));
+
+          
+    //     } 
+        
+       
+    //     catch(e) {
+    //       console.log(e)
+    //     }
+      
+    // }
+
+  
+    getData = async () => {
+      try {
+        const user = await AsyncStorage.getItem('names')
+        const userP = await JSON.parse(user)
+      alert(userP.name)
+
+      this.setState({user:userP.name})
+
+      
+      }
+      catch (e)  {
+        console.log(e)
+      }
+    }      
+
+    
+
+    // async getdata() {
+    //   let taskname =  await AsyncStorage.getItem('user')
+     
+    //   this.setState({
+    //      names : taskname,
+
+    //   });
+    //   }
+
+
 
 
  
@@ -129,7 +257,7 @@ elevation: 5,
              }}>
           <Text style = {{
             fontSize:20
-          }}>Daniel</Text>
+          }}> {this.state.user} </Text>
         
 
           </View>
@@ -202,7 +330,9 @@ elevation: 5,
              }}>
           <Text style = {{
             fontSize:20
-          }}>Patricia</Text>
+          }}>
+          {this.state.user}
+          </Text>
         
 
           </View>
@@ -271,13 +401,17 @@ elevation: 5,
              }}>
           <Text style = {{
             fontSize:20
-          }}>Patricia</Text>
+          }}>{this.state.user}</Text>
         
 
           </View>
 
 
           </View>
+
+          <TouchableOpacity onPress = {this.getData } > 
+  <Text>Text</Text>
+  </TouchableOpacity>
 
 
 
