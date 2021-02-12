@@ -10,7 +10,8 @@ import Rental from '../components/Rental'
 import YourProperties from '../components/YourProperties'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getData } from '../actions/constant';
-
+import EverythingOk from '../components/EverythingOk'
+import * as Animatable from 'react-native-animatable';
 
 
 class Welcome extends Component { 
@@ -18,15 +19,17 @@ class Welcome extends Component {
     super(props);
     this.state = { 
         user:'',
+        name1:'',
+        name2:'',
+        ServiceName:'',
+        EmergencyNumber:''
+      
         
       
     }
   }
 
  
-  componentDidMount(){
-    getData();
-  }
 
 
  
@@ -69,73 +72,43 @@ class Welcome extends Component {
   //   }, 1500 )
 
  
-   
+ 
+ 
 
 
 
 
 
+
+    componentDidMount() {
+      this.getData();
+    }
   
-    // getData = async () => {
-    //   try {
-    //     let user = await AsyncStorage.getItem('name')
-       
-    //     this.setState({ name:user.name })
-    //   alert(user.name)
-
-        
-    //   } 
-      
-     
-    //   catch(e) {
-    //     console.log(e)
-    //   }
-    // }
-
-    // async componentDidMount() {
-    //     try {
-    //       let user = await  AsyncStorage.getItem('name')
-         
-    //       this.setState({ name:user })
-    //     alert(this.state.name)
-    //     // console.log(JSON.parse(user[0]));
-
-          
-    //     } 
-        
-       
-    //     catch(e) {
-    //       console.log(e)
-    //     }
-      
-    // }
+ 
 
   
     getData = async () => {
       try {
         const user = await AsyncStorage.getItem('names')
-        const userP = await JSON.parse(user)
-      alert(userP.name)
+         const userP = await JSON.parse(user)
+        this.setState({user:userP.name})
+         this.setState({name1:userP.name1})
+         this.setState({name2:userP.name2})
 
-      this.setState({user:userP.name})
-
-      
       }
+     
+      
+
       catch (e)  {
         console.log(e)
       }
-    }      
+    }  
 
     
 
-    // async getdata() {
-    //   let taskname =  await AsyncStorage.getItem('user')
-     
-    //   this.setState({
-    //      names : taskname,
+    
 
-    //   });
-    //   }
+  
 
 
 
@@ -157,6 +130,8 @@ class Welcome extends Component {
         />
 
 
+
+
         <View style={styles.header}>
 
           <Header navigation = {this.props.navigation} />
@@ -165,6 +140,21 @@ class Welcome extends Component {
 
           
         </View>
+        <View style = {{
+          width:wp('98%'),
+          marginLeft:4,
+          flex:1.5,
+           zIndex: 5 
+              }}>
+
+        <Animatable.Text
+          animation="fadeInDown"
+          delay={1500}
+        >
+          <EverythingOk />
+        </Animatable.Text>
+</View>
+
         <View style={styles.WelcomeNote}>
 
           <View style={{
@@ -186,15 +176,16 @@ class Welcome extends Component {
                     fontWeight: '400',
                   }}>Hope you are doing well today!!</Text>
           </View>
+     
         </View>
 
-
         <View style={{
-          flex: 7,
-          marginTop: 50
+          flex: 10,
+          marginTop: 50,
         }}>
 
           <ScrollView>
+
 
 
 
@@ -331,7 +322,7 @@ elevation: 5,
           <Text style = {{
             fontSize:20
           }}>
-          {this.state.user}
+          {this.state.name1}
           </Text>
         
 
@@ -401,7 +392,7 @@ elevation: 5,
              }}>
           <Text style = {{
             fontSize:20
-          }}>{this.state.user}</Text>
+          }}>{this.state.name2}</Text>
         
 
           </View>
@@ -409,9 +400,9 @@ elevation: 5,
 
           </View>
 
-          <TouchableOpacity onPress = {this.getData } > 
+          {/* <TouchableOpacity onPress = {this.getData } > 
   <Text>Text</Text>
-  </TouchableOpacity>
+  </TouchableOpacity> */}
 
 
 
@@ -496,7 +487,7 @@ const styles = StyleSheet.create({
   },
   WelcomeNote: {
     flex: 1,
-    justifyContent: 'center'
+     justifyContent: 'center'
   },
 
 

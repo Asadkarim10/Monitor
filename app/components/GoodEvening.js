@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,StatusBar, ImageBackground, Image, ScrollView, Alert, Pressable } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import Checkboxs from '../components/Checkboxs'
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 const GoodEvening = () => {
+    var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+    var dateObj = new Date()
+    var weekdayNumber = dateObj.getDay()
+    var weekdayName = arrayOfWeekdays[weekdayNumber]
+    // weekdayName = "Saturday"
+
   return (
 
     <View style = {{
@@ -18,6 +23,7 @@ const GoodEvening = () => {
             width:wp('98%'),
             alignSelf:'center',
             height:150,
+            marginTop:60,
             backgroundColor:'white',
             alignSelf:'center',
             justifyContent:'center',
@@ -56,7 +62,7 @@ const GoodEvening = () => {
         }}>Your day with most movement activity was on <Text style = {{
             paddingTop:30,
             color:'#98cbf2'
-        }}>Wednesday</Text>
+        }}>{weekdayName}</Text>
         </Text>
         </View>
 

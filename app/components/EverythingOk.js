@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,StatusBar, ImageBackground, Image, ScrollView, Alert, Pressable } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import Checkboxs from '../components/Checkboxs'
-import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 
 const EverythingOk = () => {
@@ -55,7 +54,8 @@ const EverythingOk = () => {
 
         <View style={{ height: 3, width:wp('60%'), marginTop:20, marginLeft:20,  backgroundColor: '#1f6eaa'}} />
 
-        <TouchableOpacity style = {{
+        <TouchableOpacity onPress={this._onPressButton}
+        style = {{
             width:wp('50%'),
             marginTop:20,
             borderRadius:10,
@@ -64,6 +64,7 @@ const EverythingOk = () => {
             alignSelf:'center',
             backgroundColor:'#2dc040'
         }}>
+
             <Text style = {{
                 textAlign:'center',
                 color:'white',

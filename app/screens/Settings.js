@@ -5,6 +5,8 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../components/Header'
 import ToggleSwitchs from '../components/ToggleSwitch'
+import GoodEvening from '../components/GoodEvening'
+import * as Animatable from 'react-native-animatable';
 
 class Settings extends Component {
     render() {
@@ -19,6 +21,24 @@ class Settings extends Component {
                 }}>
                     <Header navigation={this.props.navigation} />
                 </View>
+
+                 <View style = {{
+          width:wp('98%'),
+          height:400,
+          flex:.1,
+          marginLeft:4,
+           zIndex: 5 
+              }}>
+
+        <Animatable.Text
+          animation="fadeInDown"
+          delay={1500}
+        >
+          <GoodEvening />
+        </Animatable.Text>
+</View>  
+
+
                 <View style={{
                     flex: .7,
                     width: wp("95%"),

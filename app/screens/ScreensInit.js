@@ -7,6 +7,7 @@ import Welcome from './Welcome'
 import Header from '../components/Header'
 import Settings from './Settings' 
 import TopSheet from '../components/TopSheet'
+import SendSms from '../components/SendSms'
 import PrivacyPolicy from './PrivacyPolicy'
 import TermConditions from './TermConditions'
 import Faq from './Faq'
@@ -17,8 +18,9 @@ import SleepSetting from './SleepSetting'
 import BottomSheet from '../components/BottomSheet'
 import LanguageSetting from './LanguageSetting'
 import FeedBack from './FeedBack'
-import GoodEvening from '../components/GoodEvening'
 import EverythingOk from '../components/EverythingOk'
+import GoodEvening from '../components/GoodEvening'
+
 import TimePicker from '../components/TimePicker'
  import AboutUs from './AboutUs'
  import Practice from './Practice'
@@ -76,7 +78,9 @@ const StackRoutes = ({ navigation }) => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="TimePicker" component={TimePicker} />
       <Stack.Screen name="TopSheet" component={TopSheet} />
-      <Stack.Screen name="Practice" component={Practice} />
+      <Stack.Screen name="SendSms" component={SendSms} />
+
+
 
 
 

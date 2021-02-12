@@ -11,9 +11,6 @@ import ContactDetails from '../components/ContactDetails';
 import RBSheet from "react-native-raw-bottom-sheet";
 import { connect } from "react-redux";
 //import {storeData} from "../actions/constant"
-
-import { StatusBar } from 'react-native'
-import Checkboxs from '../components/Checkboxs'
 import RestDialogBox from "../components/RestDialogBox";
 import { callAPI } from "../api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,12 +22,43 @@ class EmergencyContact extends Component {
     super(props);
     this.state = {
       name: "",
+      user:'',
+      name1:"",
+      name2:'',
       number: null,
-
 
     }
 
   }
+
+
+  componentDidMount() {
+    this.getData();
+  }
+
+
+
+
+  getData = async () => {
+    try {
+      const user = await AsyncStorage.getItem('names')
+      const userP = await JSON.parse(user)
+      this.setState({user:userP.name})
+       this.setState({name1:userP.name1})
+       this.setState({name2:userP.name2})
+
+    }
+   
+    
+
+    catch (e)  {
+      console.log(e)
+    }
+  }  
+  
+
+
+
 
 
   // setUser = () => {
@@ -85,47 +113,19 @@ class EmergencyContact extends Component {
 
 
 
-  // OnSubmit = async () =>{
-  // try{
-  //   const initialstate = {
-  //     name : this.state.name,
-  //     number : this.state.number
-  //   }
-  //   await storeData("name",this.state.name);
-  //   await storeData("number",this.state.number);
-  //   this.setUserData(initialstate)
-
-  // }
-
-
-  // catch(error){
-  //   console.log(error)
-  // }
-  // }
-
-  // setUserData = async(UserInit)=>{
-  //   await storeData("name",UserInit.name)
-  //   await storeData("number",UserInit.number)
-  // }
-
-  // OnSet = async (value) => {
-  //   try {
-  //     await AsyncStorage.setItem('name', this.state.name)
-  //     await AsyncStorage.setItem('number', this.state.number)
-
-  //   } catch (e) {
-  //     // saving error
-  //   }
-  // }
 
 
 
   onSubmit = async() => {
       try {
-        // await AsyncStorage.setItem('name', this.state.name)
-        // await AsyncStorage.setItem('number', this.state.number)
+       await AsyncStorage.setItem("names",JSON.stringify({
+         name:this.state.name, 
+         name1:this.state.name1, 
+         name2:this.state.name2}))
+       this.setState({name1:name1})
+       this.setState({name2:name2})
 
-       await AsyncStorage.setItem("names",JSON.stringify({name:this.state.name, number:this.state.number}))
+
       } 
 
       catch (error) {
@@ -134,51 +134,8 @@ class EmergencyContact extends Component {
       }
     }
 
-    
- 
-
-    
 
 
-  // setUserData = async (authUserInit) => {
-  //   await storeData("name", this.state.name);
-  //   // updateAPIConfig(authUserInit.authToken);
-  //   // await storeData("userAuthenticates", authUserInit.userAuthenticates);
-  //   // await storeData("userType", authUserInit.userType);
-  //   await storeData("number", this.state.number);
-  //   // await storeData("user", JSON.stringify());
-  // }
-  //}
-
-  //  getData = async () => {
-  //   try {
-  //     const name = await AsyncStorage.getItem('name')
-  //     const UserName = JSON.parse(name)
-  //     const number = await AsyncStorage.getItem('number')
-  //     const UserNumber = JSON.parse(number)
-
-
-  //     if(UserName !== null) {
-  //       this.setState({name:UserName})
-  //       // value previously stored
-  //     }
-
-  //     if (UserNumber!== null ) {
-  //       console.log('enter your number')
-  //      // this.setState({...UserNumber})
-  //     }
-
-  //   } 
-
-
-  //   catch(e) {
-  //     console.log(e)
-
-  //     // error reading value
-  //   }
-  // }
-
-    
   
 
   render() {
@@ -261,7 +218,7 @@ class EmergencyContact extends Component {
                 fontSize: 17,
 
 
-              }}> {this.state.name}
+              }}> {this.state.user}
               </Text>
 
 
@@ -275,7 +232,7 @@ class EmergencyContact extends Component {
           marginTop: 10
         }}>
 
-          <TouchableOpacity onPress={() => this.RBSheet.open()}
+          <TouchableOpacity onPress={() => this.RBSheet1.open()}
             style={{
               width: wp('85%'),
               alignSelf: 'center',
@@ -283,7 +240,6 @@ class EmergencyContact extends Component {
               justifyContent: 'center',
               borderRadius: 7,
               borderColor: '#efeeef', borderLeftWidth: 7, borderTopWidth: 7,
-
               backgroundColor: '#f8f8f8'
             }}>
             <View style={{
@@ -295,7 +251,7 @@ class EmergencyContact extends Component {
             }}>
               <Text style={{
                 fontSize: 17,
-              }}>{this.state.name}</Text>
+              }}>{this.state.name1}</Text>
               <Image
                 source={require('../assets/test.png')}
               />
@@ -308,7 +264,7 @@ class EmergencyContact extends Component {
           marginTop: 10
         }}>
 
-          <TouchableOpacity onPress={() => this.RBSheet.open()}
+          <TouchableOpacity onPress={() => this.RBSheet2.open()}
             style={{
               width: wp('85%'),
               alignSelf: 'center',
@@ -330,7 +286,7 @@ class EmergencyContact extends Component {
               <TextInput
                 placeholder="Add a contact"
                 onChangeText={(text) =>
-                  this.setState({ assd: text })
+                  this.setState({ name2: text })
                 }
                 style={{ height: 40, fontWeight: '700', paddingLeft: 6, width: wp('70%'), fontSize: 14 }} />
               <Image source={require('../assets/test.png')}
@@ -385,8 +341,8 @@ class EmergencyContact extends Component {
           }}>
             <TextInput
               placeholder="e.g Danial"
-              onChangeText={(val) =>
-                this.setState({ name: val })
+              onChangeText={(name) =>
+                this.setState({ name: name })
               }
               value={this.state.name}
               placeholderTextColor="#adadad"
@@ -441,9 +397,234 @@ class EmergencyContact extends Component {
               <Text style={styles.numbers}>Set</Text>
             </ TouchableOpacity>
             <View style={styles.verticleLine}></View>
+            <TouchableOpacity  onPress={() => this.RBSheet.close()}>
             <Text style={styles.numbers}>Cancel</Text>
+            </TouchableOpacity>
           </View>
         </RBSheet>
+
+
+
+        <RBSheet
+          ref={ref => {
+            this.RBSheet1 = ref;
+          }}
+          height={300}
+          openDuration={250}
+
+          customStyles={{
+            container: {
+              alignItems: "center"
+            }
+          }}
+        >
+          <View style={{
+            height: hp('5%'),
+            justifyContent: 'center',
+            width: wp('90%'),
+            alignSelf: 'center',
+
+          }}>
+            <Text Name={this.state.name1} style={{
+              fontWeight: '600',
+              fontSize: 20
+            }}>Enter Contact Details</Text>
+          </View>
+
+          <View style={{
+            width: wp('90%'),
+            alignSelf: 'center'
+          }}>
+            <Text style={{
+              fontSize: 11
+            }}>CONTACT NAME</Text>
+          </View>
+
+          <View style={{
+            height: hp('6%'),
+            width: wp('90%'),
+            marginTop: 7,
+            borderRadius: 10,
+            alignSelf: 'center',
+            backgroundColor: '#f8f8f8',
+            justifyContent: 'center'
+          }}>
+            <TextInput
+              placeholder="e.g Danial"
+              onChangeText={(name1) =>
+                this.setState({ name1: name1})
+              }
+              value={this.state.name1}
+              placeholderTextColor="#adadad"
+              style={{
+                paddingLeft: 20,
+                fontSize: 14,
+                fontWeight: '600'
+              }}
+            />
+          </View>
+
+          <View style={{
+            width: wp('90%'),
+            alignSelf: 'center',
+            marginTop: 15,
+          }}>
+            <Text style={{
+              fontSize: 11
+            }}>CONTACT NUMBERS</Text>
+          </View>
+
+          <View style={{
+            height: hp('6%'),
+            width: wp('90%'),
+            marginTop: 5,
+            borderRadius: 10,
+            alignSelf: 'center',
+            backgroundColor: '#f8f8f8',
+            justifyContent: 'center'
+          }}>
+            <TextInput
+              placeholder="e.g ,+1 1234 567 890"
+              placeholderTextColor="#adadad"
+              onChangeText={(val) =>
+                this.setState({ number1: val })
+              }
+              value={this.state.number1}
+
+
+              style={{
+                paddingLeft: 20,
+                fontSize: 14,
+                fontWeight: '600'
+
+              }}
+            />
+          </View>
+
+
+          <View style={styles.ridesFriends}>
+            <TouchableOpacity onPress={() => this.onSubmit()}>
+              <Text style={styles.numbers}>Set</Text>
+            </ TouchableOpacity>
+            <View style={styles.verticleLine}></View>
+            
+            <TouchableOpacity  onPress={() => this.RBSheet1.close()}>
+            <Text style={styles.numbers}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </RBSheet>
+
+   
+
+        <RBSheet
+          ref={ref => {
+            this.RBSheet2 = ref;
+          }}
+          height={300}
+          openDuration={250}
+
+          customStyles={{
+            container: {
+              alignItems: "center"
+            }
+          }}
+        >
+          <View style={{
+            height: hp('5%'),
+            justifyContent: 'center',
+            width: wp('90%'),
+            alignSelf: 'center',
+
+          }}>
+            <Text Name={this.state.name2} style={{
+              fontWeight: '600',
+              fontSize: 20
+            }}>Enter Contact Details</Text>
+          </View>
+
+          <View style={{
+            width: wp('90%'),
+            alignSelf: 'center'
+          }}>
+            <Text style={{
+              fontSize: 11
+            }}>CONTACT NAME</Text>
+          </View>
+
+          <View style={{
+            height: hp('6%'),
+            width: wp('90%'),
+            marginTop: 7,
+            borderRadius: 10,
+            alignSelf: 'center',
+            backgroundColor: '#f8f8f8',
+            justifyContent: 'center'
+          }}>
+            <TextInput
+              placeholder="e.g Danial"
+              onChangeText={(name2) =>
+                this.setState({ name2: name2 })
+              }
+              value={this.state.name2}
+              placeholderTextColor="#adadad"
+              style={{
+                paddingLeft: 20,
+                fontSize: 14,
+                fontWeight: '600'
+              }}
+            />
+          </View>
+
+          <View style={{
+            width: wp('90%'),
+            alignSelf: 'center',
+            marginTop: 15,
+          }}>
+            <Text style={{
+              fontSize: 11
+            }}>CONTACT NUMBERS</Text>
+          </View>
+
+          <View style={{
+            height: hp('6%'),
+            width: wp('90%'),
+            marginTop: 5,
+            borderRadius: 10,
+            alignSelf: 'center',
+            backgroundColor: '#f8f8f8',
+            justifyContent: 'center'
+          }}>
+            <TextInput
+              placeholder="e.g ,+1 1234 567 890"
+              placeholderTextColor="#adadad"
+              onChangeText={(val) =>
+                this.setState({ number2: val })
+              }
+              value={this.state.number2}
+
+
+              style={{
+                paddingLeft: 20,
+                fontSize: 14,
+                fontWeight: '600'
+
+              }}
+            />
+          </View>
+
+
+          <View style={styles.ridesFriends}>
+            <TouchableOpacity onPress={() => this.onSubmit()}>
+              <Text style={styles.numbers}>Set</Text>
+            </ TouchableOpacity>
+            <View style={styles.verticleLine}></View>
+            <TouchableOpacity  onPress={() => this.RBSheet2.close()}>
+            <Text style={styles.numbers}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </RBSheet>
+
+
         <RestDialogBox />
 
       </View>
