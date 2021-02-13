@@ -17,6 +17,7 @@ class EmergencyMessage extends Component {
     super(props);
     this.state = {
         EmergencyMessage: null,
+        switch1Value: false,
         
        
     }
@@ -33,8 +34,7 @@ handleChange(event) {
   this.setState({[EmergencyMessage]: processedData})
 }
 
-
-
+ 
 
 Save = () => {
  
@@ -93,6 +93,15 @@ setUserData = async (authUserInit) => {
 
 
   render() {
+
+
+    let asad = toggleSwitch1 = () => {
+      console.log('Switch 1 is: ')
+    }
+    
+
+
+
     return (
       <View style={{
           flex: 1,
@@ -224,7 +233,11 @@ setUserData = async (authUserInit) => {
             }}
         
             >
-            <ToggleSwitchs />
+            <ToggleSwitchs 
+            onChange={asad}
+            value = {this.props.switch1Value}
+            
+            />
             </View>
 
         </View>

@@ -22,14 +22,19 @@ class Welcome extends Component {
         name1:'',
         name2:'',
         ServiceName:'',
-        EmergencyNumber:''
-      
+        EmergencyNumber:'',
+        switch1Value: false,
+
         
       
     }
   }
 
  
+  toggleSwitch1 = () => {
+    // this.setState({switch1Value: value})
+    console.log('Switch 1 is')
+ }
 
 
  

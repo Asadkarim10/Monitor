@@ -89,7 +89,15 @@ class Settings extends Component {
                                 }}>Automatic monitoring</Text>
                             </View>
                             <View>
-                                <ToggleSwitchs />
+                                <ToggleSwitchs         
+                                  isOn={true}
+                                  onColor="green"
+                                  offColor="red"
+                                  label="Example label"
+                                  labelStyle={{ color: "black", fontWeight: "900" }}
+                                  size="large"
+                                  onToggle={isOn => console.log("changed to : ", isOn)}
+                                />
                             </View>
                         </View>
 
