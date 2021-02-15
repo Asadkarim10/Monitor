@@ -28,7 +28,7 @@ class AboutUs extends Component {
           flexDirection:"row",
 
         }}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate('FeedBack')} >
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')} >
 
 <AntDesign  name="arrowleft" size={30} />    
 </TouchableOpacity>  

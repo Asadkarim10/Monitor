@@ -30,7 +30,7 @@ class Faq extends Component {
           flexDirection:"row",
 
         }}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('TermConditions')} >
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Welcome')} >
 <AntDesign  name="arrowleft" size={30} />  
 </TouchableOpacity>    
     <Text style = {{

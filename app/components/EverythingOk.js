@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,StatusBar, ImageBackground, Image, ScrollView, Alert, Pressable } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import * as Animatable from 'react-native-animatable';
+
+
+
 
 
 
 const EverythingOk = () => {
   return (
+  
+
 
     <View style = {{
         flex:1,
@@ -52,11 +58,14 @@ const EverythingOk = () => {
         }}>If the green button is not pressed within x minutes, then your contact persons will receive a text message</Text>
         </View>
 
-        <View style={{ height: 3, width:wp('60%'), marginTop:20, marginLeft:20,  backgroundColor: '#1f6eaa'}} />
 
-        <TouchableOpacity onPress={this._onPressButton}
-        style = {{
-            width:wp('50%'),
+
+        <View>
+<TouchableOpacity          onPress={this.onPress}
+
+style = {{
+            width:wp('60%'),
+
             marginTop:20,
             borderRadius:10,
             height:50,
@@ -64,13 +73,23 @@ const EverythingOk = () => {
             alignSelf:'center',
             backgroundColor:'#2dc040'
         }}>
-
-            <Text style = {{
+<Text style = {{
                 textAlign:'center',
                 color:'white',
                 fontWeight:'600'
-            }}>Yes! I'm fine!</Text>
-        </TouchableOpacity>
+            }}>
+Yes! I'm fine!
+</Text>
+
+</TouchableOpacity>
+</View>
+
+
+
+<View>
+
+</View>
+
 
         </View>
         
