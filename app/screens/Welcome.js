@@ -19,16 +19,22 @@ class Welcome extends Component {
     super(props);
     this.state = {
       user: '',
+      userN1: "",
+      userN2: '',
+      userN: '',
       name1: '',
       name2: '',
       ServiceName: '',
       EmergencyNumber: '',
-
-
+      animations: "fadeInDown"
 
     }
   }
 
+
+  removePop = () => {
+    this.setState({ animations: 'fadeOutUp' })
+  }
 
 
 
@@ -80,11 +86,9 @@ class Welcome extends Component {
 
   componentDidMount() {
     this.getData();
-    
+
   }
 
-
- 
 
 
 
@@ -93,8 +97,12 @@ class Welcome extends Component {
       const user = await AsyncStorage.getItem('names')
       const userP = await JSON.parse(user)
       this.setState({ user: userP.name })
+      this.setState({ userN: userP.number })
       this.setState({ name1: userP.name1 })
+      this.setState({ userN1: userP.number1 })
       this.setState({ name2: userP.name2 })
+      this.setState({ userN2: userP.number2 })
+
 
     }
 
@@ -104,11 +112,6 @@ class Welcome extends Component {
       console.log(e)
     }
   }
-
-
-
-
-
 
 
 
@@ -131,40 +134,99 @@ class Welcome extends Component {
         />
 
 
-
-
         <View style={styles.header}>
-
           <Header navigation={this.props.navigation} />
-
-
-
-
         </View>
         <View style={{
           width: wp('98%'),
           marginLeft: 4,
-          // flex: 1.5,
-           zIndex: 5
+          flex: 1,
+          zIndex: 5
         }}>
-
-          <Animatable.View style = {{
-            marginTop:70,
-            zIndex: 5
-
+          <Animatable.View style={{
           }}
-            animation="fadeInDown"
+            // animation="fadeInDown"
+            animation={this.state.animations}
             delay={1500}
-            
-
           >
-            <EverythingOk />
-            
+            <View style={{
+              width: wp('98%'),
+              //marginTop:-50,
+              height: 250,
+              backgroundColor: 'white',
+              alignSelf: 'center',
+              justifyContent: 'center',
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+
+              elevation: 5,
+              borderRadius: 10
+            }}>
+              <View style={{
+                width: wp('90%'),
+                alignSelf: 'center',
+              }} >
+                <Text style={{
+                  color: '#1f6eaa',
+                  fontWeight: '700',
+                  fontSize: 24
+                }}>IS EVERYTHING OKAY?</Text>
+                <Text style={{
+                  color: '#403f40',
+                  fontSize: 15,
+                  fontWeight: '500',
+                  marginTop: 10,
+
+                }}>If the green button is not pressed within x minutes, then your contact persons will receive a text message</Text>
+              </View>
+
+              <View>
+                <TouchableOpacity onPress={this.removePop}
+                  style={{
+                    width: wp('60%'),
+
+                    marginTop: 20,
+                    borderRadius: 10,
+                    height: 50,
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    backgroundColor: '#2dc040'
+                  }}>
+                  <Text style={{
+                    textAlign: 'center',
+                    color: 'white',
+                    fontWeight: '600'
+                  }}>
+                    Yes! I'm fine!
+</Text>
+
+                </TouchableOpacity>
+              </View>
+
+
+
+              <View>
+
+              </View>
+
+
+            </View>
+
+
+
+
+
+
           </Animatable.View>
         </View>
 
 
-    
+
 
         <View style={styles.WelcomeNote}>
 
@@ -194,77 +256,76 @@ class Welcome extends Component {
           <ScrollView>
 
 
-
-
-            <View style={{
-              width: wp('90%'),
-              // height:hp('7%'),
-              alignSelf: 'center',
-              flexDirection: 'row',
-
-            }}>
+            <TouchableOpacity onPress={() => { Linking.openURL("911"); }} >
 
               <View style={{
-                width: wp('22%'),
-                backgroundColor: '#1f6eaa',
-                //   height:hp('7.2%'),
-                height: 63,
-
-                //  borderTopleftRadius:20,
-                //  borderBottomleftRadius:20,
-                justifyContent: "center",
-                alignItems: 'center',
-                shadowColor: "#1f6eaa",
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.28,
-                shadowRadius: .00,
-
-                elevation: 1,
-
-                borderTopLeftRadius: 10,
-                borderBottomLeftRadius: 10
-
-
-
+                width: wp('90%'),
+                // height:hp('7%'),
+                alignSelf: 'center',
+                flexDirection: 'row',
 
               }}>
-                <Ionicons name="call" size={30} color="white" />
+
+                <View style={{
+                  width: wp('22%'),
+                  backgroundColor: '#1f6eaa',
+                  //   height:hp('7.2%'),
+                  height: 63,
+
+                  //  borderTopleftRadius:20,
+                  //  borderBottomleftRadius:20,
+                  justifyContent: "center",
+                  alignItems: 'center',
+                  shadowColor: "#1f6eaa",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.28,
+                  shadowRadius: .00,
+
+                  elevation: 1,
+
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 10
+
+
+
+
+                }}>
+                  <Ionicons name="call" size={30} color="white" />
+                </View>
+                <View style={{
+                  width: wp('60%'),
+                  backgroundColor: 'white',
+                  paddingLeft: 20,
+                  borderTopRightRadius: 5,
+                  borderBottomRightRadius: 5,
+                  justifyContent: 'center',
+                  //   height:hp('7%'),
+                  height: 63,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: .25,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+
+                }}>
+                  <Text style={{
+                    fontSize: 20
+                  }}> {this.state.user} {this.state.userN} </Text>
+
+
+                </View>
+
+
               </View>
-              <View style={{
-                width: wp('60%'),
-                backgroundColor: 'white',
-                paddingLeft: 20,
-                borderTopRightRadius: 5,
-                borderBottomRightRadius: 5,
-                justifyContent: 'center',
-                //   height:hp('7%'),
-                height: 63,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 1,
-                },
-                shadowOpacity: .25,
-                shadowRadius: 3.84,
 
-                elevation: 5,
-
-              }}>
-                <Text style={{
-                  fontSize: 20
-                }}> {this.state.user} </Text>
-
-
-              </View>
-
-
-            </View>
-
-
-
+            </TouchableOpacity>
 
             <View style={{
               width: wp('90%'),
@@ -407,7 +468,7 @@ class Welcome extends Component {
 
             </View>
 
-       
+
 
 
 
@@ -491,22 +552,10 @@ const styles = StyleSheet.create({
 
   },
   WelcomeNote: {
-    flex: 1.7,
-    alignItems:'center',
-    justifyContent:'center'
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-
-
-
-
-
-
 });
 
 
-// import SvgUri from 'react-native-svg-uri';                                    
-// <SvgUri
-//                                         width="40"
-//                                         height="35"
-//                                         source={require('../assets/credit_card_icon.svg')}
-//                                     />

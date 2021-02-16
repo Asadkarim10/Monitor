@@ -234,8 +234,7 @@ setUserData = async (authUserInit) => {
         
             >
             <ToggleSwitchs 
-            onChange={asad}
-            value = {this.props.switch1Value}
+           
             
             />
             </View>

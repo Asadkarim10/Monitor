@@ -26,6 +26,8 @@ class EmergencyContact extends Component {
       name1:"",
       name2:'',
       number: null,
+      number1:null,
+      number2:null
 
     }
 
@@ -120,9 +122,14 @@ class EmergencyContact extends Component {
       try {
        await AsyncStorage.setItem("names",JSON.stringify({
          name:this.state.name, 
+         number:this.state.number,
          name1:this.state.name1, 
-         name2:this.state.name2}))
-       this.setState({name1:name1})
+         number1:this.state.number1,
+         name2:this.state.name2,
+        number2:this.state.number2}))
+       
+       // Display the current state of numbers
+        this.setState({name1:name1})
        this.setState({name2:name2})
 
 
@@ -376,8 +383,8 @@ class EmergencyContact extends Component {
             <TextInput
               placeholder="e.g ,+1 1234 567 890"
               placeholderTextColor="#adadad"
-              onChangeText={(val) =>
-                this.setState({ number: val })
+              onChangeText={(number) =>
+                this.setState({ number: number })
               }
               value={this.state.number}
 
@@ -486,8 +493,8 @@ class EmergencyContact extends Component {
             <TextInput
               placeholder="e.g ,+1 1234 567 890"
               placeholderTextColor="#adadad"
-              onChangeText={(val) =>
-                this.setState({ number1: val })
+              onChangeText={(number1) =>
+                this.setState({ number1: number1 })
               }
               value={this.state.number1}
 
@@ -597,8 +604,8 @@ class EmergencyContact extends Component {
             <TextInput
               placeholder="e.g ,+1 1234 567 890"
               placeholderTextColor="#adadad"
-              onChangeText={(val) =>
-                this.setState({ number2: val })
+              onChangeText={(number2) =>
+                this.setState({ number2: number2 })
               }
               value={this.state.number2}
 

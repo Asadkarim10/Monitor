@@ -30,12 +30,13 @@ class Settings extends Component {
            zIndex: 5 
               }}>
 
-        <Animatable.Text
+        {/* <Animatable.Text
           animation="fadeInDown"
           delay={1500}
         >
-          <GoodEvening />
-        </Animatable.Text>
+        </Animatable.Text> */}
+                  <GoodEvening />
+
 </View>  
 
 
@@ -333,3 +334,42 @@ class Settings extends Component {
 }
 
 export default Settings;
+
+
+// const styles = StyleSheet.create({
+//     container: {
+//       flex: 1,
+//       backgroundColor: 'white'
+//     },
+  
+//     header: {
+//       flex: 1,
+//       marginTop: 35,
+//       shadowColor: "#000",
+//       shadowOffset: {
+//         width: 2,
+//         height: 2,
+//       },
+//       shadowOpacity: 0.25,
+//       shadowRadius: 7,
+  
+//       elevation: 2,
+  
+  
+  
+//     },
+//     WelcomeNote: {
+//       flex: 1,
+//       alignItems: 'center',
+//       justifyContent: 'center'
+//     },
+  
+  
+  
+  
+  
+  
+//   });
+  
+  
+  

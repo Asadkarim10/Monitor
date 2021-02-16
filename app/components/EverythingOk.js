@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState} from 'react';
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,StatusBar, ImageBackground, Image, ScrollView, Alert, Pressable } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
@@ -10,10 +10,14 @@ import * as Animatable from 'react-native-animatable';
 
 
 const EverythingOk = () => {
+    const [animations, setAniminations] = useState('fadeInDown');
+
+removePop = () => {
+    console.log("asadkarim")
+    setAniminations('fadeOutUp');
+}
   return (
-  
-
-
+    
     <View style = {{
         flex:1,
         backgroundColor:'white',
@@ -61,7 +65,7 @@ const EverythingOk = () => {
 
 
         <View>
-<TouchableOpacity          onPress={this.onPress}
+<TouchableOpacity  onPress={this.removePop}
 
 style = {{
             width:wp('60%'),

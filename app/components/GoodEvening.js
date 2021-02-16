@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity,StatusBar, ImageBackground, Image, ScrollView, Alert, Pressable } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp, heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import * as Animatable from 'react-native-animatable';
 
 
 const GoodEvening = () => {
     var arrayOfWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
     var dateObj = new Date()
     var weekdayNumber = dateObj.getDay()
     var weekdayName = arrayOfWeekdays[weekdayNumber]
     // weekdayName = "Saturday"
+    const [isshow, setIsShow] = useState("fadeInDown");
+    const removePops = () =>{ setIsShow("fadeOutUp")};
+
 
   return (
 
@@ -19,6 +22,16 @@ const GoodEvening = () => {
         backgroundColor:'white',
         justifyContent:'center'
     }}>
+
+<TouchableOpacity onPress={removePops}>
+
+         <Animatable.View style={{
+          }}
+            // animation="fadeInDown"
+            animation={isshow}
+            delay={1500}
+          >
+        
       <View style = {{
             width:wp('98%'),
             alignSelf:'center',
@@ -77,6 +90,9 @@ const GoodEvening = () => {
 
         </View>
         </View>
+
+        </Animatable.View>
+        </TouchableOpacity>
       </View>
   );
 }

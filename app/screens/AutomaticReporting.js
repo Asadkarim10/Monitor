@@ -90,7 +90,7 @@ class AutomaticReporting extends Component {
                             }}> Show weekly reports of most activity in a day </Text>
                         </View>
                         <View>
-                                <ToggleSwitchs />
+                                <ToggleSwitchs   />
                             </View>
 
                             </View>

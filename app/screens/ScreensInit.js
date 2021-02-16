@@ -20,7 +20,6 @@ import LanguageSetting from './LanguageSetting'
 import FeedBack from './FeedBack'
 import EverythingOk from '../components/EverythingOk'
 import GoodEvening from '../components/GoodEvening'
-
 import TimePicker from '../components/TimePicker'
  import AboutUs from './AboutUs'
  import Practice from './Practice'
@@ -60,6 +59,8 @@ const StackRoutes = ({ navigation }) => {
       screenOptions={screenOptionStyle}>
       <Stack.Screen name="Home1" component={Splash} />
       <Stack.Screen name="SosSetting" component={SosSetting} />
+      <Stack.Screen name="Practice" component={Practice} />
+
       <Stack.Screen name="Faq" component={Faq} />
       <Stack.Screen name="TermConditions" component={TermConditions} />
       <Stack.Screen name="Header" component={Header} />
