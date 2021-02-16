@@ -144,7 +144,7 @@ Allow this app to update the contacts on daily basis                      </Text
  </View>
 
                         <View>
-                        <ToggleSwitchs />
+                        <ToggleSwitchs IDD={this.props.Id} />
                         </View>
 
                         </View>

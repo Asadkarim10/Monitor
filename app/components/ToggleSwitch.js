@@ -6,6 +6,7 @@ import { View, Text, StyleSheet,Switch, TouchableOpacity, ImageBackground, Image
 const ToggleSwitchs = () => {
 
   const [isEnabled, setIsEnabled] = useState(false);
+  const Enable = () => setIsEnabled (!isEnabled)
   const toggleSwitch = () => setIsEnabled(previousState => !previousState , Alert.alert("asad"));
 
  
@@ -21,7 +22,7 @@ const ToggleSwitchs = () => {
         style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
         ios_backgroundColor="#e2e2e2"
         onValueChange={toggleSwitch}
-        value={isEnabled}
+        value={Id=isEnabled}
       />
 
 

@@ -202,38 +202,45 @@ class EmergencyContact extends Component {
           <View>
             <Text></Text>
           </View>
+{
+  this.props.IDD === true ?
+  <TouchableOpacity onPress={() => this.RBSheet.open()}
+  style={{
+    width: wp('85%'),
+    alignSelf: 'center',
+    height: 60,
+    justifyContent: 'center',
+    borderRadius: 7,
 
-          <TouchableOpacity onPress={() => this.RBSheet.open()}
-            style={{
-              width: wp('85%'),
-              alignSelf: 'center',
-              height: 60,
-              justifyContent: 'center',
-              borderRadius: 7,
-
-              borderColor: '#efeeef', borderLeftWidth: 9, borderTopWidth: 7,
-              backgroundColor: '#f8f8f8'
-            }}>
-            <View style={{
-              flexDirection: "row",
-              width: wp('78%'),
-              alignSelf: 'center',
-              alignContent: 'center',
-              justifyContent: 'space-between'
-            }}>
-              <Text style={{
-                fontSize: 17,
-
-
-              }}> {this.state.user}
-              </Text>
+    borderColor: '#efeeef', borderLeftWidth: 9, borderTopWidth: 7,
+    backgroundColor: '#f8f8f8'
+  }}>
+  <View style={{
+    flexDirection: "row",
+    width: wp('78%'),
+    alignSelf: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-between'
+  }}>
+    <Text style={{
+      fontSize: 17,
 
 
+    }}> {this.state.user}
+    </Text>
 
-              <Image
-                source={require('../assets/test.png')} />
-            </View>
-          </TouchableOpacity>
+
+
+    <Image
+      source={require('../assets/test.png')} />
+  </View>
+</TouchableOpacity>
+
+  :
+  null
+}
+
+
         </View>
         <View style={{
           marginTop: 10
