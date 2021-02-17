@@ -47,6 +47,11 @@ class SosSetting extends Component {
   // }  
 
 
+  onSet = async () => {
+    await AsyncStorage.setItem('date', new Date());
+  };
+
+
 
 
   onSubmit = async() => {

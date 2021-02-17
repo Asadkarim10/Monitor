@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-
 import SwitchToggle from "react-native-switch-toggle";
 
 export default class Practice extends Component {
@@ -36,13 +35,14 @@ export default class Practice extends Component {
             height: 48,
             borderRadius: 25,
             backgroundColor: "#ccc",
+            backgroundColor:'green',
             padding: 5
           }}
           circleStyle={{
             width: 38,
             height: 38,
             borderRadius: 19,
-            backgroundColor: "white" // rgb(102,134,205)
+            backgroundColor: "green" // rgb(102,134,205)
           }}
           switchOn={this.state.switchOn2}
           onPress={this.onPress2}

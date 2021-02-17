@@ -27,19 +27,38 @@ class Welcome extends Component {
       ServiceName: '',
       EmergencyNumber: '',
       animations: "fadeInDown",
-      DelayNum:2500
+      DelayNum:1000,
+      timers : true,
     }
   }
 
+  
 
   removePop = () => {
     this.setState({ animations: 'fadeOutUp' })
-    
+    console.log(this.state.timers)
+
   }
 
+removeTimer = () => {
+ this.setState({timers: false}) 
+  console.log(this.state.timers)
+
+}
 
 
+ 
+  
+  functionCombined = () => {
+     this.removeTimer();
+      this.removePop();
+  }  
 
+
+  // timer = () => {
+  //   setTimeout(() => {
+  //     alert("sms and location has been sent to your emergency contact");
+  //     }, 8000);  }
 
 
   // getUser = async (  ) => {
@@ -110,17 +129,6 @@ class Welcome extends Component {
     }
   }
   render() {
-
-  //   let asad = 4
-  //   let asad1 = 41
-
-  //  if(this.state.animations = "asad"){
-  //   Alert.alert("asad1")
-  //  }
-  // else {
-  //   console.log("mughal")
-  //  }
-    
     
     return (
       <View style={styles.container}>
@@ -151,6 +159,8 @@ class Welcome extends Component {
             // animation="fadeInDown"
             animation={this.state.animations}
             delay={this.state.DelayNum}
+          
+
           >
             <View style={{
               width: wp('98%'),
@@ -187,12 +197,11 @@ class Welcome extends Component {
 
                 }}>If the green button is not pressed within x minutes, then your contact persons will receive a text message</Text>
               </View>
-
               <View>
-                <TouchableOpacity onPress={this.removePop}
+                <TouchableOpacity onPress={ this.functionCombined} 
+              
                   style={{
                     width: wp('60%'),
-
                     marginTop: 20,
                     borderRadius: 10,
                     height: 50,
@@ -205,10 +214,13 @@ class Welcome extends Component {
                     color: 'white',
                     fontWeight: '600'
                   }}>
-                    Yes! I'm fine!
-</Text>
+                    Yes! I'm fine!           
+                       </Text>
 
                 </TouchableOpacity>
+
+                  
+
               </View>
 
 

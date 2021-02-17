@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import { View, Text,Platform, StyleSheet, TouchableOpacity,TextInput,Input, ImageBackground, Image, ScrollView } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker';
+// import React, {useState} from 'react';
+// import { View, Text,Platform, StyleSheet, TouchableOpacity,TextInput,Input, ImageBackground, Image, ScrollView } from 'react-native'
+// import DateTimePicker from '@react-native-community/datetimepicker';
 
 //  const TimePicker = () => {
 //   const [date, setDate] = useState(new Date(1598051730000));
@@ -55,75 +55,55 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 
 
-// import React, { Component } from 'react';
-// import { View, Text, StyleSheet, TouchableOpacity,TextInput,Input, ImageBackground, Image, ScrollView } from 'react-native'
-// //import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
-// import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity,TextInput,Input, ImageBackground, Image, ScrollView } from 'react-native'
+//import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { shadow } from 'react-native-paper';
+import Moment from 'react-moment';
 
 
 export default class TimePicker extends Component {
-  state = {
-    date: new Date(),
-    Show:false,
-    Mode:'date'
+constructor(){
+  super()
+this.state = {
+  isVisible : shadow,
+  chosenDate: moment(datetime).format('Date')
+}
+  
+}
 
-  }
-
- 
-
-  render() {
-    const { date } = this.state;
-     onChange = (event, selectedDate) => {
-   //   const currentDate = selectedDate || date;
-       this.setState.Show(Platform.OS === 'ios');
-       this.setState.Date({currentDate});
-      };
+handlePicker = (datetime) => {
+  this.setState({
+    chosenDate:moment(datetime).format('MMMM, Do YYYY')
+  })
+}
 
 
-     const showMode = (currentMode) => {
-   this.setShow(true);
-   this.setMode(currentMode);
-  };
+
+render(){
+  return(
+
+<View>
+
+    <DateTimePicker 
+    onConfirm={this.handlePicker}
+    mode={'time'}
+    is24Hour={false}
+    
+    />
 
 
-  state = {
-    dateTimePickerVisible: false, 
-    dateOrTimeValue: new Date(), 
-};
-    return (
-      <View>
-                <TouchableOpacity
-                    onPress={() => this.setState({ dateTimePickerVisible: true, })}
-                >
-                    <Input
-                        label='Shift Starts At'
-                        placeholder={"01/01/2019 - 09:00 AM"}
-                        editable={false}
-                        value={this.state.dateOrTimeValue.toLocaleDateString()}
-                    />
-                </TouchableOpacity>
 
-                {this.state.dateTimePickerVisible &&
-                    (<DateTimePicker
-                        mode={"datetime"} // THIS DOES NOT WORK ON ANDROID. IT DISPLAYS ONLY A DATE PICKER.
-                        display='default' // Android Only  
-                        is24Hour={false} // Android Only 
-                        value={defaultShiftStartDateTime}
 
-                        onChange={(event, value) => {
-                            this.setState({
-                                dateOrTimeValue: value,
-                                dateTimePickerVisible: Platform.OS === 'ios' ? true : false,
-                            });
+</View>
 
-                            if (event.type === "set")
-                                console.log("value:" , value);
-                        }}
-                    />)}
-            </View>
+  )
 
-    );
-  }
+  
+}
+
 }
 
 
