@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { View, Text, StyleSheet,Switch, TouchableOpacity, ImageBackground, Image, ScrollView,Alert } from 'react-native'
 
 
-const ToggleSwitchs = () => {
+const ToggleSwitchs = (props) => {
 
   const [isEnabled, setIsEnabled] = useState(false);
   const Enable = () => setIsEnabled (!isEnabled)
   const toggleSwitch = () => setIsEnabled(previousState => !previousState , Alert.alert("asad"));
 
  
-
+console.log(isEnabled)
 
   return (
     <View>
@@ -22,7 +22,7 @@ const ToggleSwitchs = () => {
         style={{ transform: [{ scaleX: .8 }, { scaleY: .8 }] }}
         ios_backgroundColor="#e2e2e2"
         onValueChange={toggleSwitch}
-        value={Id=isEnabled}
+        value={isEnabled}
       />
 
 

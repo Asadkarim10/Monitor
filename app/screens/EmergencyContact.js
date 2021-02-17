@@ -202,8 +202,7 @@ class EmergencyContact extends Component {
           <View>
             <Text></Text>
           </View>
-{
-  this.props.IDD === true ?
+
   <TouchableOpacity onPress={() => this.RBSheet.open()}
   style={{
     width: wp('85%'),
@@ -236,9 +235,7 @@ class EmergencyContact extends Component {
   </View>
 </TouchableOpacity>
 
-  :
-  null
-}
+ 
 
 
         </View>

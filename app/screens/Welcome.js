@@ -1,5 +1,5 @@
 import React, { Component, useRef } from 'react';
-import { View, Text, StyleSheet, Linking, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Linking, TouchableOpacity,Alert, ImageBackground, Image, ScrollView } from 'react-native'
 //import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -26,14 +26,15 @@ class Welcome extends Component {
       name2: '',
       ServiceName: '',
       EmergencyNumber: '',
-      animations: "fadeInDown"
-
+      animations: "fadeInDown",
+      DelayNum:2500
     }
   }
 
 
   removePop = () => {
     this.setState({ animations: 'fadeOutUp' })
+    
   }
 
 
@@ -81,9 +82,6 @@ class Welcome extends Component {
 
 
 
-
-
-
   componentDidMount() {
     this.getData();
 
@@ -103,7 +101,6 @@ class Welcome extends Component {
       this.setState({ name2: userP.name2 })
       this.setState({ userN2: userP.number2 })
 
-
     }
 
 
@@ -112,13 +109,19 @@ class Welcome extends Component {
       console.log(e)
     }
   }
-
-
-
-
-
-
   render() {
+
+  //   let asad = 4
+  //   let asad1 = 41
+
+  //  if(this.state.animations = "asad"){
+  //   Alert.alert("asad1")
+  //  }
+  // else {
+  //   console.log("mughal")
+  //  }
+    
+    
     return (
       <View style={styles.container}>
         <StatusBar
@@ -147,11 +150,11 @@ class Welcome extends Component {
           }}
             // animation="fadeInDown"
             animation={this.state.animations}
-            delay={1500}
+            delay={this.state.DelayNum}
           >
             <View style={{
               width: wp('98%'),
-              //marginTop:-50,
+              marginTop:-55,
               height: 250,
               backgroundColor: 'white',
               alignSelf: 'center',

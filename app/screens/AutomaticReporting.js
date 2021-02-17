@@ -7,17 +7,16 @@ import Header from '../components/Header'
 import ToggleSwitchs from '../components/ToggleSwitch'
 
 class AutomaticReporting extends Component {
+    
     render() {
+        console.log("hassam" + this.props.IDD)
         return (
             <View style={{
                 flex: 1,
                 backgroundColor: 'white'
             }}>
-
                 <View style={{
                     flex: .7,
-
-
                 }}>
                     <Header navigation = {this.props.navigation} />
                 </View>
@@ -142,9 +141,10 @@ class AutomaticReporting extends Component {
                             }}>
 Allow this app to update the contacts on daily basis                      </Text> 
  </View>
-
                         <View>
-                        <ToggleSwitchs IDD={this.props.Id} />
+                        <ToggleSwitchs IDD={this.props.value} 
+        
+                        />
                         </View>
 
                         </View>
