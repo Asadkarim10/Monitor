@@ -12,6 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getData } from '../actions/constant';
 import EverythingOk from '../components/EverythingOk'
 import * as Animatable from 'react-native-animatable';
+import SendSMS from 'react-native-sms';
 
 
 class Welcome extends Component {
@@ -29,6 +30,7 @@ class Welcome extends Component {
       animations: "fadeInDown",
       DelayNum:1000,
       timers : true,
+      Smsbody:''
     }
   }
 
@@ -47,12 +49,58 @@ removeTimer = () => {
 }
 
 
- 
+
+
   
   functionCombined = () => {
      this.removeTimer();
       this.removePop();
   }  
+
+
+  
+  
+   initiateSMS = () => {
+    // Check for perfect 10 digit length
+   Alert.alert("asad")
+    if (userN.length != 11) {
+      alert('Please insert correct contact number');
+      return;
+    }
+
+  
+   
+
+
+
+    SendSMS.send(
+      {
+        // Message body
+        body: Smsbody,
+        // Recipients Number
+        recipients: [userN,userN1,userN2],
+        // An array of types 
+        // "completed" response when using android
+        successTypes: ['sent', 'queued'],
+      },
+      (completed, cancelled, error) => {
+        if (completed) {
+          console.log('SMS Sent Completed');
+        } else if (cancelled) {
+          console.log('SMS Sent Cancelled');
+        } else if (error) {
+          console.log('Some error occured');
+        }
+      },
+    );
+  };
+
+
+
+
+
+
+
 
 
   // timer = () => {
@@ -102,7 +150,10 @@ removeTimer = () => {
 
 
   componentDidMount() {
-    this.getData();
+  console.log(this.getData());
+  
+
+
 
   }
 
@@ -119,6 +170,8 @@ removeTimer = () => {
       this.setState({ userN1: userP.number1 })
       this.setState({ name2: userP.name2 })
       this.setState({ userN2: userP.number2 })
+      this.setState({ Smsbody: userP.message })
+
 
     }
 

@@ -9,87 +9,113 @@ import ToggleSwitchs from '../components/ToggleSwitch'
 import RestDialogBox from "../components/RestDialogBox";
 import { callAPI } from "../api";
 import { restAction, API_CONTS, storeData } from "../actions/constant";
-
-
+import Welcome from './Welcome'
+import OtherClass from './Child'
 
 class EmergencyMessage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        EmergencyMessage: null,
+        EmergencyMessage: '',
         switch1Value: false,
         
        
     }
 }
 
-handleChange(event) {
-  const {EmergencyMessage} = event;
-  let processedData = text;
-  if(type==='text') {
-      processedData = value.toUpperCase();
-  } else if (type==='number') {
-      processedData = value * 2;
-  }
-  this.setState({[EmergencyMessage]: processedData})
-}
+
+
+
+
+// handleChange(event) {
+//   const {EmergencyMessage} = event;
+//   let processedData = text;
+//   if(type==='text') {
+//       processedData = value.toUpperCase();
+//   } else if (type==='number') {
+//       processedData = value * 2;
+//   }
+//   this.setState({[EmergencyMessage]: processedData})
+// }
 
  
 
-Save = () => {
+// Save = () => {
  
-  try {
-    const restInit = {
-      IS_LOADING: true,
-      RETURN: false,
-      IS_RETURN: false,
-      RETURN_MESSAGE: "Something wrong",
-    }
-    this.props.restAction(restInit);
-    const postsData = callAPI(API_CONTS.LOGIN, "post", {
-      "EmergencyMessage": this.state.EmergencyMessage,
-    }).then(res => {
-      restInit.IS_LOADING = false;
-      restInit.RETURN_MESSAGE = res.message;
-      restInit.IS_RETURN = true;
-      restInit.RETURN = res.return;
-      if (res.return === false) {
-        this.props.restAction(restInit);
-      } else {
-        const authUserInit = {
-          userType: res.users.usertype,
-          authToken: res.token,
-          userAuthenticates: true,
-          id: res.users.id,
-          user: res.users
-        }
-        restInit.IS_RETURN = false;
-        this.setUserData(authUserInit);
-        this.props.restAction(restInit);
-        this.props.authUser(authUserInit)
-      }
-    });
-  } catch (error) {
-    this.props.restAction(
-      {
-        IS_LOADING: false,
-        IS_RETURN: true,
-        RETURN: false,
-        RETURN_MESSAGE: "Network request failed"
-      });
+//   try {
+//     const restInit = {
+//       IS_LOADING: true,
+//       RETURN: false,
+//       IS_RETURN: false,
+//       RETURN_MESSAGE: "Something wrong",
+//     }
+//     this.props.restAction(restInit);
+//     const postsData = callAPI(API_CONTS.LOGIN, "post", {
+//       "EmergencyMessage": this.state.EmergencyMessage,
+//     }).then(res => {
+//       restInit.IS_LOADING = false;
+//       restInit.RETURN_MESSAGE = res.message;
+//       restInit.IS_RETURN = true;
+//       restInit.RETURN = res.return;
+//       if (res.return === false) {
+//         this.props.restAction(restInit);
+//       } else {
+//         const authUserInit = {
+//           userType: res.users.usertype,
+//           authToken: res.token,
+//           userAuthenticates: true,
+//           id: res.users.id,
+//           user: res.users
+//         }
+//         restInit.IS_RETURN = false;
+//         this.setUserData(authUserInit);
+//         this.props.restAction(restInit);
+//         this.props.authUser(authUserInit)
+//       }
+//     });
+//   } catch (error) {
+//     this.props.restAction(
+//       {
+//         IS_LOADING: false,
+//         IS_RETURN: true,
+//         RETURN: false,
+//         RETURN_MESSAGE: "Network request failed"
+//       });
 
-  }
-}
-setUserData = async (authUserInit) => {
-  await storeData("EmergencyMessage", authUserInit.EmergencyMessage);
-  updateAPIConfig(authUserInit.authToken);
+//   }
+// }
+// setUserData = async (authUserInit) => {
+//   await storeData("EmergencyMessage", authUserInit.EmergencyMessage);
+//   updateAPIConfig(authUserInit.authToken);
   
+// }
+
+
+
+onSubmit = async() => {
+  try {
+   await AsyncStorage.setItem("names",JSON.stringify({
+    EmergencyMessage:this.state.EmergencyMessage, 
+   
+  }))
+   
+   // Display the current state of numbers
+  this.setState({name1:name1})
+  this.setState({name2:name2})
+
+  } 
+
+  catch (error) {
+    console.log(error)
+    // saving error
+  }
 }
 
 
-
-
-
+handlerSimpleCall = () => {
+  //Calling a function of other class (without arguments)
+  new OtherClass().functionWithoutArg();
+};
 
 
   render() {
@@ -234,7 +260,7 @@ setUserData = async (authUserInit) => {
         
             >
             <ToggleSwitchs 
-           
+            onChange={this.handlerSimpleCall.bind(this)}
             
             />
             </View>

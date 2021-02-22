@@ -35,7 +35,7 @@ class EmergencyContact extends Component {
 
 
   componentDidMount() {
-    this.getData();
+   console.log( this.getData());
   }
 
 
@@ -121,17 +121,16 @@ class EmergencyContact extends Component {
   onSubmit = async() => {
       try {
        await AsyncStorage.setItem("names",JSON.stringify({
-         name:this.state.name, 
-         number:this.state.number,
-         name1:this.state.name1, 
-         number1:this.state.number1,
-         name2:this.state.name2,
+        name:this.state.name, 
+        number:this.state.number,
+        name1:this.state.name1, 
+        number1:this.state.number1,
+        name2:this.state.name2,
         number2:this.state.number2}))
        
        // Display the current state of numbers
-        this.setState({name1:name1})
-       this.setState({name2:name2})
-
+      this.setState({name1:name1})
+      this.setState({name2:name2})
 
       } 
 
@@ -146,7 +145,7 @@ class EmergencyContact extends Component {
   
 
   render() {
-    //console.log(this.state.name)
+  
     return (
       <View style={{
         flex: 1,

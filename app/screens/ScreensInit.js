@@ -23,7 +23,8 @@ import GoodEvening from '../components/GoodEvening'
 import TimePicker from '../components/TimePicker'
  import AboutUs from './AboutUs'
  import Practice from './Practice'
-
+import Parent from './Parent'
+import OtherClass from './Child'
  import Splash from './SplashScreen';
 import AutomaticReporting from './AutomaticReporting'
 import RestDialogBox from '../components/RestDialogBox'
@@ -59,7 +60,7 @@ const StackRoutes = ({ navigation }) => {
       screenOptions={screenOptionStyle}>
       <Stack.Screen name="Home1" component={Splash} />
       <Stack.Screen name="SosSetting" component={SosSetting} />
-      <Stack.Screen name="Practice" component={Practice} />
+      <Stack.Screen name="Parent" component={Parent} />
 
       <Stack.Screen name="Faq" component={Faq} />
       <Stack.Screen name="TermConditions" component={TermConditions} />

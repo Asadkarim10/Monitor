@@ -5,11 +5,34 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Header from '../components/Header'
 import ToggleSwitchs from '../components/ToggleSwitch'
+import { restAction, API_CONTS, storeData } from "../actions/constant";
 
 class AutomaticReporting extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          name: "",
+          user:'',
+          name1:"",
+          name2:'',
+          number: null,
+          number1:null,
+          number2:null
+    
+        }
+    
+      }
+    
+  setUserData = async (authUserInit) => {
+    await storeData("name", authUserInit.name);
+    await storeData("number", authUserInit.number);
+    await storeData("user", JSON.stringify(authUserInit));
+  }
+
     
     render() {
-        console.log("hassam" + this.props.IDD)
+        console.log("hassam" + this.setUserData())
         return (
             <View style={{
                 flex: 1,
