@@ -90,9 +90,9 @@ Yes! I'm fine!
 
 
 
-<View>
+{/* <View>
 
-</View>
+</View> */}
 
 
         </View>

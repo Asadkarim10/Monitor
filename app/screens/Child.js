@@ -7,6 +7,11 @@ class OtherClass extends Component {
       //function to be called from default class (without args)
       alert('Function Called Without Argument ');
     };
+
+    BatteryStatus = () => {
+        //function to be called from default class (without args)
+        alert('battery is less or more than 50% ');
+      };
   
     functionWithArg = Value => {
       //function to called from default class (with args)

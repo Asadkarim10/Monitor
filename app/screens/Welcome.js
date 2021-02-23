@@ -171,11 +171,7 @@ removeTimer = () => {
       this.setState({ name2: userP.name2 })
       this.setState({ userN2: userP.number2 })
       this.setState({ Smsbody: userP.message })
-
-
     }
-
-
 
     catch (e) {
       console.log(e)
@@ -204,7 +200,7 @@ removeTimer = () => {
         <View style={{
           width: wp('98%'),
           marginLeft: 4,
-          flex: 1,
+          flex: .4,
           zIndex: 5
         }}>
           <Animatable.View style={{
@@ -212,12 +208,10 @@ removeTimer = () => {
             // animation="fadeInDown"
             animation={this.state.animations}
             delay={this.state.DelayNum}
-          
-
           >
             <View style={{
               width: wp('98%'),
-              marginTop:-55,
+              // marginTop:-55,
               height: 250,
               backgroundColor: 'white',
               alignSelf: 'center',
@@ -300,7 +294,7 @@ removeTimer = () => {
 
           <View style={{
             width: wp('90%'),
-            alignSelf: 'center',
+             alignSelf: 'center',
           }}>
             <Text
               style={{
@@ -318,7 +312,7 @@ removeTimer = () => {
 
         <View style={{
           flex: 10,
-          marginTop: 50,
+         // marginTop: 50,
         }}>
 
           <ScrollView>
@@ -543,8 +537,6 @@ removeTimer = () => {
           </ScrollView>
 
         </View>
-
-
         <View style={{
           flex: 2,
           alignSelf: 'center'
@@ -583,13 +575,7 @@ removeTimer = () => {
               </View>
             </View>
           </TouchableOpacity>
-
         </View>
-
-
-
-
-
       </View>
     );
   }
@@ -605,7 +591,6 @@ const styles = StyleSheet.create({
 
   header: {
     flex: 1,
-    marginTop: 35,
     shadowColor: "#000",
     shadowOffset: {
       width: 2,
@@ -613,16 +598,16 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 7,
-
     elevation: 2,
 
 
 
   },
   WelcomeNote: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1.9,
+     alignItems: 'center',
+     alignContent:'center',
+     justifyContent: 'center'
   },
 });
 

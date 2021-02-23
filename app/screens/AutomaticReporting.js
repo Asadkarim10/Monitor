@@ -24,6 +24,8 @@ class AutomaticReporting extends Component {
     
       }
     
+      
+
   setUserData = async (authUserInit) => {
     await storeData("name", authUserInit.name);
     await storeData("number", authUserInit.number);
@@ -32,6 +34,9 @@ class AutomaticReporting extends Component {
 
     
     render() {
+
+        const toggleSwitch = () => setIsEnabled(  previousState => !previousState, functionWithoutArg() )
+
         console.log("hassam" + this.setUserData())
         return (
             <View style={{
@@ -112,7 +117,10 @@ class AutomaticReporting extends Component {
                             }}> Show weekly reports of most activity in a day </Text>
                         </View>
                         <View>
-                                <ToggleSwitchs   />
+                                <ToggleSwitchs  
+                             onValueChange={toggleSwitch}
+
+                                />
                             </View>
 
                             </View>
