@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { View } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import AwesomeAlert from 'react-native-awesome-alerts';
+
 import Spinner from "react-native-spinkit"
- import { restAction } from "../actions/constant";
+import { restAction } from "../actions/constant";
 
 class RestDialogBox extends Component {
     constructor(props) {
@@ -17,11 +18,24 @@ class RestDialogBox extends Component {
             type: "WanderingCubes"
         }
     }
+    componentDidMount() {
+        
+        setTimeout( () => {
+            this.props.restAction({
+                IS_LOADING: false,
+            })
+            }, 5000 )
+    }
     hideAlert = () => {
         this.props.restAction({
             IS_RETURN: false
         })
+        
     };
+
+    navigate = () =>{
+        this.props.navigation.navigate("Successful")
+    }
     render() {
         return (
             <>
@@ -35,7 +49,8 @@ class RestDialogBox extends Component {
                             justifyContent: 'center',
                             alignItems: 'center',
                             backgroundColor: 'black',
-                            opacity: 0.8
+                            opacity: 0.8,
+                            zIndex: 99999999
                         }}>
 
                             <Spinner style={{
@@ -82,6 +97,8 @@ class RestDialogBox extends Component {
                                 this.hideAlert();
                             }}
                         />
+                        
+                        
                         : null
                 }
             </>

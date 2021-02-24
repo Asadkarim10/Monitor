@@ -1,250 +1,288 @@
-import * as React from 'react';
-import {  Modal, Portal, Text, Button, Provider,  } from 'react-native-paper';
-import { View, TouchableOpacity,Image } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { heightPercentageToDP as hp , widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, { useEffect, useState } from 'react';
+import { Modal, Portal, Text, Button, Provider } from 'react-native-paper';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Image
+} from "react-native";
+import { connect } from 'react-redux';
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import RestDialogBox from "../components/RestDialogBox";
 
-const Modaltrip = () => {
-  const [visible, setVisible] = React.useState(false);
+import { restAction, API_CONTS, storeData } from "../actions/constant";
+import { callAPI, updateAPIConfig } from "../api";
+import { validateLogin, update, authUser } from "../actions/authAction";
 
-  const showModal = () => setVisible(true);
+const Modaltrip = (props) => {
 
-  const hideModal = () => setVisible(false);
+  const [name, setName] = useState(null)
+  const [phone, setPhone] = useState(null)
+
+  const nextRoute = () => {
+    try {
+      if (name === null) {
+        props.restAction({
+          IS_RETURN: true,
+          RETURN: false,
+          IS_LOADING: false,
+          RETURN_MESSAGE: "Please enter User Name"
+        })
+      } else if (phone === false) {
+        props.restAction({
+          IS_RETURN: true,
+          RETURN: false,
+          IS_LOADING: false,
+          RETURN_MESSAGE: "Please enter Phone Number"
+        })
+      }
+      const restInit = {
+        IS_LOADING: true,
+        RETURN: false,
+        IS_RETURN: false,
+        RETURN_MESSAGE: "Something wrong",
+      }
+      props.restAction(restInit);
+      const postsData = callAPI(API_CONTS.UPDATEUSER, "post", {
+        "firstname": name,
+        "primary_contact": phone,
+
+      }).then(res => {
+        restInit.IS_LOADING = false;
+        restInit.RETURN_MESSAGE = res.message;
+        restInit.IS_RETURN = true;
+        restInit.RETURN = res.return;
+
+        props.restAction(restInit);
+        if (res.return === true) {
+          setName(null)
+          setPhone(null)
+          props.validateLogin()
+        }
+        props.closemodal()
+      });
+    } catch (error) {
+      props.restAction(
+        {
+          IS_LOADING: false,
+          IS_RETURN: true,
+          RETURN: false,
+          RETURN_MESSAGE: "Network request failed"
+        });
+
+    }
+  }
+
+
+
 
   return (
-    <Provider>
-      <Portal>
-         <Modal visible={visible}  onDismiss={hideModal}>
-         <View   style = {{ 
-             backgroundColor:'white',
-             height : "auto",
-         }} >
+    <>
+      {
+        props.ismodalshow === true ?
 
-      <View style = {{
-        height:hp('5%'),
-        flexDirection:'row',
-        width:wp('96%'),
-        alignContent:'center',
-        alignItems:'center',
-        justifyContent:'flex-end'
-      }}>
-        <TouchableOpacity  onPress={hideModal}>
-        <Icon name='close' color="#26cd9b"  size={25}/> 
-        </TouchableOpacity>
-      </View>
-      <View style = {{
-        height:hp('6%'),
-        alignSelf:'center'
-      }}>
-        <Text style = {{
-          fontWeight:'700',
-          fontSize:27
-        }}>Select a payment method</Text>
-      </View>
+          <>
 
-      <View style = {{
-    width:wp('60%'),
-    marginBottom:20,
-    alignSelf:'center',
-    flexDirection:'row',
-    justifyContent:'space-between'
-}}>
+            <Modal animationType="slide"
+              transparent={true}
+              visible={props.ismodalshow} onDismiss={props.closemodal}>
+
+              <View style={{
+                backgroundColor: '#DFDEDC',
+                elevation: 4,
+                width: wp("94%"),
+                alignSelf: 'center',
+                height: 300
+              }} >
 
 
-         <View style = {{
-             height:hp('13%'),
-             width:wp('28%'),
-             justifyContent:'center',
-             borderRadius:7,
-             backgroundColor:'white',
+                <View>
+                  <View style={styles.Header}>
+                    <Image
+                      source={require('../assets/Homepage/lxrymobility_logo.png')}
+                      style={{ height: 40, width: wp("40%"), marginTop: 15 }}
+                      resizeMode='contain'
+                    />
+                  </View>
 
-             shadowColor: "#000",
-             shadowOffset: {
-                 width: 0,
-                 height: 2,
-             },
-             shadowOpacity: 0.25,
-             shadowRadius: 1.84,
-             
-             elevation: 5
-         }}>
-            <View style = {{
-            
-             
-           }}>
-             <View style = {{
-               
-               height:hp('2%'),
-               width:wp('5%'),
-               alignItems:'center',
-               justifyContent:'center',
-               borderRadius:50,
-             }}>
-  </View>             
-           </View>
-             <View style = {{
-                 width:'10%',
-                 height:hp('5%'),
-                 justifyContent:'flex-end',
-                 alignItems:'center',
-                 alignSelf:'center'
-             }}>
-
-<Image
-                source={require('../assets/signupimg.jpg')}
-                style={{ height:hp("4%") , width: wp('16%') }}
-              />
-</View>
-<View style = {{
-    alignSelf:'center',
-    height:hp('4%'),
-    justifyContent:'flex-end',
-}}>
-              <Text style = {{
-                  fontSize:15
-              }}>Paypal</Text>
-          </View>   
-             </View>   
-
-<TouchableOpacity >
-            
-         <View style = {{
-             height:hp('13%'),
-             width:wp('28%'),
-             justifyContent:'center',
-             borderRadius:7,
-             backgroundColor:'white',
-             shadowColor: "#000",
-             shadowOffset: {
-                 width: 0,
-                 height: 2,
-             },
-             shadowOpacity: 0.25,
-             shadowRadius: 1.84,
-             
-             elevation: 5
-         }}>
-
-           <View style = {{
-             flexDirection:'row',
-             justifyContent:'flex-end',
-             paddingRight:10,
-             
-           }}>
-             <View style = {{
-               
-               borderWidth:1,
-               height:hp('3%'),
-               width:wp('6%'),
-               alignItems:'center',
-               justifyContent:'center',
-               borderRadius:25,
-               borderColor:'#26cd9b'
-             }}>
-<Icon name='check' color="#26cd9b" />
-  </View>             
-           </View>
-             <View style = {{
-                 width:'10%',
-                 height:hp('5%'),
-                 justifyContent:'center',
-                 alignItems:'center',
-                 alignSelf:'center'
-             }}>
-
-<Image
-                source={require('../assets/signupimg.jpg')}
-                style={{ height:hp("4%") , width: wp('12%') }}
-              />
-</View>
-<View style = {{
-    alignSelf:'center',
-    height:hp('4%'),
-    justifyContent:'flex-end',
-}}>
-              <Text style = {{
-                  fontSize:15
-              }}>Bank</Text>
-          </View>   
-             </View> 
-             </TouchableOpacity>
-             </View>
-      <View style = {{
-        justifyContent:'center',
-        flexDirection:'row',
-        alignItems:"center",
-        height:hp('10%')
-      }}>
-        <TouchableOpacity style = {{
-          marginTop:-40,
-          backgroundColor:'#26cd9b',
-          width:wp('45%'),
-          height:hp('5%'),
-          flexDirection:'row',
-          alignItems:'center',
-          justifyContent:'center',
-          shadowColor: "#000",
-             shadowOffset: {
-                 width: 0,
-                 height: 2,
-             },
-             shadowOpacity: 0.25,
-             shadowRadius: 3.84,
-             
-             elevation: 5
-
-
-        }}>
-          <Text style = {{
-           color:'white',
-           fontWeight:'500',
-           fontSize:17
-          }}>Pay Now!</Text>
-        </TouchableOpacity>
-      </View>
-
-
-    
-
-
-    
- 
-          </View> 
-        </Modal>
+                  <View style={{
+                    width: wp('80%'),
+                    height: 50,
+                    marginTop: 30,
+                    alignSelf: "center"
+                  }}>
+                    <View style={{
+                      width: wp('80%'),
+                      backgroundColor: 'white',
+                      height: 50,
+                    }}>
+                      <TextInput
+                        placeholderTextColor='#707070'
+                        onChangeText={(text) =>
+                          (setName(text))}
+                        value={name}
+                        placeholder="User Name"
+                        placeholderTextColor="#c0c0c0"
+                        style={{
+                          width: wp('80%'),
+                          fontSize: 15,
+                          paddingLeft: 15
+                        }}
+                      />
+                    </View>
 
 
 
+                  </View>
+
+                  <View style={{
+                    width: wp('80%'),
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                    alignItems: "center",
+                    backgroundColor: 'white',
+                    height: 50,
+                    marginTop: 20,
+                    flexDirection: 'row'
+                  }}>
+                    <Text style={{
+                      color: '#272727',
+                      borderRightWidth: 2,
+                      borderRightColor: '#00000029',
+                      paddingRight: 10
+                    }}>+49</Text>
+                    <TextInput
+                      placeholderTextColor='#707070'
+                      maxLength={10}
+                      keyboardType='number-pad'
+                      onChangeText={(text) =>
+                        (setPhone(text))}
+                      value={phone}
+                      placeholder="Phone Number"
+                      placeholderTextColor="#c0c0c0"
+                      style={{
+                        width: wp('60%'),
+                        fontSize: 15
+                      }}
+                    />
+
+                  </View>
+
+                  <View style={{
+                    width: wp("80%"),
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 20,
+                    alignSelf: 'center'
+                  }} >
+                    <TouchableOpacity onPress={() => { props.closemodal() }} style={styles.Sbutton}>
+                      < Text style={styles.butText}>CANCEL</Text>
+                    </TouchableOpacity>
 
 
-        
-        <View >
-        <Button style={{marginTop: 30, paddingLeft: "75%"}}  onPress={showModal}>
-         <Text>  menu </Text> 
-        </Button>
-        </View>
-      </Portal>
-    </Provider>
+
+                    <TouchableOpacity onPress={() => { nextRoute() }} style={styles.Sbutton}>
+                      < Text style={styles.butText}>SAVE</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+
+          <RestDialogBox />
+
+          </>
+
+          : null
+      }
+
+    </>
   );
 };
 
-export default Modaltrip;
+
+const styles = StyleSheet.create({
+
+  modalText: {
+    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    letterSpacing: 4,
+    fontSize: 24
+  },
+  Header: {
+    backgroundColor: '#DFDEDC',
+    width: wp('94%'),
+    height: hp('8%'),
+    justifyContent: "center",
+    alignContent: 'center',
+    alignItems: 'center'
+  },
+
+  Invent: {
+    height: hp('6%'),
+    width: wp('90%'),
+    justifyContent: 'center',
+    paddingLeft: 10
+  },
+
+  Inventtext: {
+    fontWeight: "bold",
+    letterSpacing: 1,
+    fontSize: 20
+  },
+  Input: {
+    height: hp('7%'),
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#2bc5c1',
+    paddingLeft: 10,
+    width: wp("94%"),
+    alignSelf: "center"
+  },
+
+  Sbutton: {
+    height: 50,
+    width: wp('35%'),
+    backgroundColor: '#272727',
+    justifyContent: 'center',
+    alignItems: 'center',
+    opacity: 0.8
+  },
+  butText: {
+    color: 'white',
+    fontSize: 15,
+    fontWeight: '500'
+  },
+
+  InputV: {
+    width: wp('55%'),
+    height: hp('7%'),
+    justifyContent: 'center',
+    paddingLeft: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#2bc5c1',
+  },
 
 
-{/* <TouchableOpacity  onPress={hideModal} style = {{
-  backgroundColor:"#0738FB",
-  borderColor:'blue',
-      borderRadius:16,
-      marginRight:5,
-      borderWidth:2,
 
-  }}>
-      <Text
-      style = {{
-          fontSize:25,
-          padding:10,
-          paddingTop:13,
-          fontWeight:'bold',
-          color:'white',
-      }}
-      >Go Back</Text>
-  </TouchableOpacity> */}
+
+});
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  rest: state.rest,
+});
+
+const mapDispatchToProps = dispatch => ({
+  restAction: payload => dispatch(restAction(payload)),
+  validateLogin: () => dispatch(validateLogin()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Modaltrip);

@@ -6,6 +6,9 @@ import { StatusBar } from 'react-native'
 import Issues from '../components/Issues';
 import Header from '../components/Header'
 import DropD from '../components/DropDown'
+
+
+
 class LanguageSetting extends Component {
   constructor(props) {
     super(props);

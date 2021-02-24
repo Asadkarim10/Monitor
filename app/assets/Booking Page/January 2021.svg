@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="90" height="15" viewBox="0 0 90 15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #272727;
+        font-size: 12px;
+        font-family: Montserrat-Medium, Montserrat;
+        font-weight: 500;
+      }
+    </style>
+  </defs>
+  <text id="January_2021" data-name="January 2021" class="cls-1" transform="translate(45 12)"><tspan x="-44.172" y="0">JANUARY 2021</tspan></text>
+</svg>

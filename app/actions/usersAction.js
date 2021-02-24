@@ -15,6 +15,10 @@ export const getpayment = (payload) => ({
   payload
 });
 
+export const getnotification = () => ({
+  type: USERS.GETNOTIFICATION
+});
+
 export const setusers = (payload) => ({
   type: USERS.SETUSERS_VALUE,
   payload

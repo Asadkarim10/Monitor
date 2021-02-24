@@ -1,8 +1,12 @@
 import { put, call, takeEvery, takeLatest, select, delay } from 'redux-saga/effects';
+
 import { AUTH, restAction, API_CONTS, RESTHELPER_RESET, RESTHELPER_VALUE } from "../actions/constant";
 import { authUser, logout } from "../actions/authAction";
-import { callAPI, updateAPIConfig, getAPIConfig } from '../api';
+
+import { callAPI, updateAPIConfig } from '../api';
 import {getData , storeData, removeData } from '../actions/constant';
+
+import { setbooking } from "../actions/bookingAction";
 
 export const getPage = state => state.nextPage;
 
@@ -49,6 +53,13 @@ export function* loginUser(action) {
   }
 }
 
+function* tokenUpdate(token) {
+  yield put(update({
+    device_type : "android",
+    device_token : token
+  }));
+}
+
 async function logoutData() {
   await storeData("userAuthenticates", "false");
   await removeData("userType");
@@ -60,21 +71,47 @@ async function logoutData() {
 
 
 async function setUserData( authUserInit ) {
-  await storeData("name", authUserInit.name);
-  await storeData("number", authUserInit.number);
+  await storeData("userAuthenticates", authUserInit.userAuthenticates);
+  await storeData("userType", authUserInit.userType);
+  await storeData("authToken", authUserInit.authToken);
+  await storeData("id", authUserInit.id);
+  await storeData("user", JSON.stringify(authUserInit.user));
+  updateAPIConfig(authUserInit.authToken);
 }
 
 
 async function getUserToken(  ) {
-  const authToken = await getData("name" );
+  const authToken = await getData("authToken" );
   updateAPIConfig(authToken);
 }
 
-// // async function getUserToken(  ) {
-// //   const authToken = await getData("number" );
-// //   updateAPIConfig(authToken);
-// }
 
+
+export function* updateUser(action) {
+  try {
+    const restInit = {
+      IS_LOADING: false,
+      RETURN: false,
+      IS_RETURN: false,
+      RETURN_MESSAGE: "Something wrong",
+    }
+
+    const PostData = yield call(callAPI, API_CONTS.UPDATEUSER, 'post',action.payload );
+    if (PostData.return === true) {
+      const authUserInit = {
+        userType: PostData.users.usertype,
+        authToken: PostData.token,
+        userAuthenticates: true,
+        id: PostData.users.id,
+        user: PostData.users
+      }
+      setUserData(authUserInit);
+      yield put(authUser(authUserInit));
+    }
+  } catch (error) {
+    //
+  }
+}
 
 export function* loginValid(action) {
   try {
@@ -109,11 +146,11 @@ export function* loginValid(action) {
 }
 
 
- 
-
-
 export function* logoutUser(action) {
   try {
+    yield put(setbooking({
+      booking: []
+  }));
     updateAPIConfig("");
     logoutData();
   } catch (error) {
@@ -125,5 +162,6 @@ export function* logoutUser(action) {
 export default function* authSaga() {
   yield takeEvery(AUTH.LOGIN_USER, loginUser);
   yield takeEvery(AUTH.LOGOUT_USER, logoutUser);
+  yield takeEvery(AUTH.UPDATE_USER, updateUser);
   yield takeEvery(AUTH.LOGIN_VALID, loginValid);
 }

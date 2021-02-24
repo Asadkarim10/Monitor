@@ -1,42 +1,39 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Image, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import {  Dimensions } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import { connect } from "react-redux";
+import { getData } from '../actions/constant';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { validateLogin , update, authUser } from "../actions/authAction";
+
 import DrawerContent from '../components/DrawerContent';
-import Welcome from './Welcome'
-import Header from '../components/Header'
-import Settings from './Settings' 
-import TopSheet from '../components/TopSheet'
-import SendSms from '../components/SendSms'
-import PrivacyPolicy from './PrivacyPolicy'
-import TermConditions from './TermConditions'
-import Faq from './Faq'
-import EmergencyContact from './EmergencyContact'
-import EmergencyMessage from './EmergencyMessage'
-import SosSetting from './SosSetting'
-import SleepSetting from './SleepSetting'
-import BottomSheet from '../components/BottomSheet'
-import LanguageSetting from './LanguageSetting'
-import FeedBack from './FeedBack'
-import EverythingOk from '../components/EverythingOk'
-import GoodEvening from '../components/GoodEvening'
-import TimePicker from '../components/TimePicker'
- import AboutUs from './AboutUs'
- import Practice from './Practice'
-import Parent from './Parent'
-import OtherClass from './Child'
- import Splash from './SplashScreen';
-import AutomaticReporting from './AutomaticReporting'
-import RestDialogBox from '../components/RestDialogBox'
+
+
+import Splash from './SplashScreen';
+import BookNow from './BookNow';
+import Welcome from './Welcome';
+import SignUp from './SignUp';
+import SignIn from './SignIn'
+import Profile from './Profile';
+import Successful from './Successful';
+import Home from './Home'
+import ConfirmBooking from './ConfirmBooking'
+import YourBooking from './YourBooking'
+
 const { width } = Dimensions.get('window');
 
 const Stack = createStackNavigator();
+
 const Drawer = createDrawerNavigator();
 const screenOptionStyle = {
   headerTransparent: true,
   headerTitle: null,
   headerLeft: null,
 };
+
+
 const StackSplash = ({ navigation }) => {
   return (
     <Stack.Navigator
@@ -52,65 +49,76 @@ const StackSplash = ({ navigation }) => {
     </Stack.Navigator>
   );
 }
+const AuthRoutes = ({ navigation }) => {
+  return (
+    <Stack.Navigator
+      initialRouteName='Home'
+      screenOptions={
+        {
+          headerTransparent: true,
+          headerTitle: null,
+          headerLeft: null,
+        }
+      }>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      
+    </Stack.Navigator>
+  );
+}
 
-const StackRoutes = ({ navigation }) => {
+const CarRoutes = ({ navigation }) => {
   return (
     <Stack.Navigator
       initialRouteName='Welcome'
       screenOptions={screenOptionStyle}>
-      <Stack.Screen name="Home1" component={Splash} />
-      <Stack.Screen name="SosSetting" component={SosSetting} />
-      <Stack.Screen name="Parent" component={Parent} />
-
-      <Stack.Screen name="Faq" component={Faq} />
-      <Stack.Screen name="TermConditions" component={TermConditions} />
-      <Stack.Screen name="Header" component={Header} />
-      <Stack.Screen name="Settings" component={Settings} />
-      <Stack.Screen name="AutomaticReporting" component={AutomaticReporting} />
-      <Stack.Screen name="AboutUs" component={AboutUs} />
-      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-      <Stack.Screen name="EmergencyContact" component={EmergencyContact} />
-        <Stack.Screen name="EmergencyMessage" component={EmergencyMessage} />
-        <Stack.Screen name="FeedBack" component={FeedBack} />
-        <Stack.Screen name="SleepSetting" component={SleepSetting} />
-        <Stack.Screen name="BottomSheet" component={BottomSheet} />
-        <Stack.Screen name="LanguageSetting" component={LanguageSetting} />
-        <Stack.Screen name="GoodEvening" component={GoodEvening} />
-        <Stack.Screen name="EverythingOk" component={EverythingOk} />
-      <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="TimePicker" component={TimePicker} />
-      <Stack.Screen name="TopSheet" component={TopSheet} />
-      <Stack.Screen name="SendSms" component={SendSms} />
-
-
-
-
-
+      <Stack.Screen name="Welcome" component={Welcome}/>
+      <Stack.Screen name="BookNow" component={BookNow} />
+      <Stack.Screen name="Successful" component={Successful}/>
+      <Stack.Screen name="Profile" component={Profile}/>
+      <Stack.Screen name="ConfirmBooking" component={ConfirmBooking}/>
+      <Stack.Screen name='YourBooking' component={YourBooking} />
       
-
-
-
-
-
-
-
-    </Stack.Navigator>
-  );
-}
-const SettingStackNavigator = (navigation) => {
-  return (
-    <Stack.Navigator screenOptions={screenOptionStyle}>
     </Stack.Navigator>
   );
 }
 
-const DrawerNavigator = () => {
-  return (
-    <Drawer.Navigator
+class ScreensInit extends Component {
+  constructor(props) {
+    super(props);
+  }
+   getUserAuthennticate = async (  ) => {
+    const userAuthenticates = await getData("userAuthenticates" );    
+    if ( userAuthenticates === "true" ){
+    const userType = await getData("userType" );
+    const authToken = await getData("authToken" );
+    const id = await getData("id" );
+    const user = await getData("user" );
+      const authUserInit = {
+        userType,
+        authToken,
+        userAuthenticates: true,
+        id,
+        user: JSON.parse(user)
+      }
+      this.props.authUser(authUserInit)
+    }
+  }
+
+ componentDidMount() {
+   this.getUserAuthennticate();
+   this.props.validateLogin();  
+  }
+
+  render() {
+    return (
+
+ <Drawer.Navigator
       initialRouteName="Splash"
       drawerPosition="left"
       drawerContent={props => <DrawerContent {...props} />}
-      drawerStyle={{ backgroundColor: '#fff', width: (width * .75) }}
+      drawerStyle={{ backgroundColor: '#fff', alignItems: 'center', width: (width * .75),  }}
       drawerContentOptions={{
         activeTintColor: '#60f',
         inactiveTintColor: '#000',
@@ -118,13 +126,37 @@ const DrawerNavigator = () => {
     >
       <Drawer.Screen name="Splash" component={StackSplash}
         options={{ swipeEnabled: false }} />
-      <Drawer.Screen name="Home" component={StackRoutes} />
-      <Drawer.Screen name="Setting" component={SettingStackNavigator} />
-    </Drawer.Navigator>
-  );
+        {
+          this.props.auth.userAuthenticates === false
+            ?
+            <Drawer.Screen name="Home" component={AuthRoutes}
+              options={{ swipeEnabled: false }} />
+            : null
+        }
+        {
+          this.props.auth.userAuthenticates === true 
+            ?
+            <Drawer.Screen name="Home" component={CarRoutes} options={{ swipeEnabled: true }} />
+            : null
+        }
+      </Drawer.Navigator> 
+    );
+
+  }
 }
 
 
-export default () => {
-  return <DrawerNavigator />
-}
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = dispatch => ({
+  validateLogin: () => dispatch(validateLogin()),
+  update : (payload) => dispatch ( update(payload)),
+  authUser : payload => dispatch( authUser(payload))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScreensInit);

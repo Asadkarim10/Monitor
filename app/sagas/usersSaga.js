@@ -45,8 +45,26 @@ export function* getpaymentFunc(action) {
     }
 }
 
+
+export function* getotificationFunc(action) {
+    try {
+        const PostData = yield call(callAPI, API_CONTS.GETNOTIFICATION, 'get');
+        var notifications = [];
+        if (PostData.return === true) {
+            notifications = PostData.notifications;
+        }
+        yield put(setusers({
+            notifications
+        }));
+    } catch (error) {
+
+    }
+}
+
+
 export default function* usersSaga() {
     yield takeEvery(USERS.GETPASSENGER, getpassenngerFunc);
     yield takeEvery(USERS.GETDOCTOR, getdoctorFunc);
     yield takeEvery(USERS.GETPAYMENT, getpaymentFunc);
+    yield takeEvery(USERS.GETNOTIFICATION, getotificationFunc);
 }

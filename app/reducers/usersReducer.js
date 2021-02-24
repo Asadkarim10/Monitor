@@ -7,6 +7,7 @@ const  initialAuthState = {
     currentdoctor: null,
     payments : [],
     currentpayments: null,
+    notifications: [],
 
 };
 
@@ -20,7 +21,8 @@ export const usersReducer = (state = initialAuthState, action) => {
             doctor: ( action.payload.doctor ) ?? state.doctor,
             currentdoctor: ( action.payload.currentdoctor ) ?? state.currentdoctor,
             payments: ( action.payload.payments ) ?? state.payments,
-            currentpayments: ( action.payload.currentpayments ) ?? state.currentpayments
+            currentpayments: ( action.payload.currentpayments ) ?? state.currentpayments,
+            notifications: ( action.payload.notifications ) ?? state.notifications
           };
         }
         default:

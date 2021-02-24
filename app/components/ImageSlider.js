@@ -8,35 +8,51 @@ export default class ImageSlider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: [
-        "https://source.unsplash.com/1024x768/?nature",
-        "https://source.unsplash.com/1024x768/?water",
-        "https://source.unsplash.com/1024x768/?tree",
-        "https://source.unsplash.com/1024x768/?tree",
-
-    
-      ]
+      images: []
     };
   }
+  componentDidMount() {
+    const images = [];
+    if ( typeof this.props.media !== "undefined" ){
+      if ( this.props.media.length > 0  ){
+        this.props.media.map( (item, index) => {
+          images.push(item.url);
+        })
+      }
+    }
+    if ( typeof this.props.url !== "undefined" ){
+      images.push( this.props.url );
+    }
+    this.setState({images})
+  }
+
+  onLayout = e => {
+    this.setState({
+      width: e.nativeEvent.layout.width
+    });
+  };
  
   render() {
     return (
-      <View  style = {{
-        alignSelf:'center',
-        width:wp('90%')
+      <View  
+      onLayout={this.onLayout}
+      style = {{
+          width: wp("90%"),
+          alignSelf: 'center',
       }} >
         <SliderBox
-            style={{width: 370,height:200, borderRadius:6}}
           images={this.state.images}
-          dotColor="white"
-          inactiveDotColor="#90A4AE"
+          sliderBoxHeight={hp("34%")}
+          dotColor="#272727"
 
-
-         // sliderBoxHeight={200}
-          
           onCurrentImagePressed={index =>
             console.warn(`image ${index} pressed`)
           }
+          inactiveDotColor="#DFDEDC"
+          parentWidth={this.state.width}
+          paginationBoxVerticalPadding={20}
+          autoplay
+          circleLoop
         />
       </View>
     );

@@ -2,7 +2,9 @@ import { BOOKING   } from "../actions/constant";
 
 const  initialAuthState = {
     booking:  [] ,
+    earning:  [] ,
     currentbooking: null,
+    totalAmount : 0
 };
 
 export const bookingReducer = (state = initialAuthState, action) => {
@@ -11,7 +13,9 @@ export const bookingReducer = (state = initialAuthState, action) => {
           return {
             ...state,
             booking: ( action.payload.booking ) ?? state.booking,
-            currentbooking: ( action.payload.currentbooking ) ?? state.currentbooking
+            earning :  ( action.payload.earning ) ?? state.earning,
+            currentbooking: ( action.payload.currentbooking ) ?? null,
+            totalAmount: ( action.payload.totalAmount ) ?? state.totalAmount
           };
         }
         default:

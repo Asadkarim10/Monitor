@@ -9,48 +9,82 @@
 import React, { useEffect } from 'react';
 import { Provider } from "react-redux";
 import store  from "./store/store";
-
-import { View, ActivityIndicator } from 'react-native';
-import { 
-  createAppContainer,
-  NavigationContainer, 
-  DefaultTheme as NavigationDefaultTheme,
-  DarkTheme as NavigationDarkTheme,
-  createSwitchNavigator
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 // react-navigation
 
-
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
-import SplashScreen from './screens/SplashScreen';
+
 
 // importing screens
 import ScreensInit from './screens/ScreensInit';
 
 const App = () => {
-  // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null); 
+  const [isAlert, setIsAlert] = React.useState(false);
+  const [alertTitle, setAlertTitle] = React.useState("Title");
+  const [alertDece, setAlertDece] = React.useState("Decsiptions");
 
- 
+
+  const hideAlert = () => {
+    setIsAlert(false)
+  } 
 
   useEffect(() => {
-    setTimeout(async() => {
-      
-    }, 1000);
-  }, []);
 
+  }, []);
  
   return (
     <Provider store={store}>
+      <NavigationContainer>
+      <SafeAreaProvider>
+          <ScreensInit/>
 
-    <NavigationContainer>
-    <SafeAreaProvider>
-        <ScreensInit/>     
-    </SafeAreaProvider>
-    </NavigationContainer>
+          {
+                    isAlert === true
+                        ?
+                        <AwesomeAlert
+                            show={isAlert}
+                            showProgress={false}
+                            contentContainerStyle={{
+                                width: "80%"
+                            }}
+                            title={alertTitle}
+                            titleStyle={{
+                                fontSize: 30
+                            }}
+                            message={alertDece}
+                            messageStyle={{
+                                fontSize: 20
+                            }}
+                            closeOnTouchOutside={true}
+                            closeOnHardwareBackPress={false}
+                            showCancelButton={false}
+                            showConfirmButton={true}
+                            cancelText="No, cancel"
+                            confirmText="Close"
+                            confirmButtonStyle={{
+                                width: "100%",
+                                alignItems: "center"
+                            }}
+                            confirmButtonTextStyle={{
+                                fontSize: 20
+                            }}
+                            confirmButtonColor={ "green"}
+                            onCancelPressed={() => {
+                                hideAlert();
+                            }}
+                            onConfirmPressed={() => {
+                                hideAlert();
+                            }}
+                        />
+                        : null
+                }     
+      </SafeAreaProvider>
+      </NavigationContainer>
     </Provider>
+    
   );
 }
 
