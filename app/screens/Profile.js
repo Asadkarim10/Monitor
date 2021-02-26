@@ -9,7 +9,7 @@ import Moment from 'react-moment';
 
 import { connect } from "react-redux";
 import { authUser, logout } from "../actions/authAction";
-import Modaltrip from '../model/ModalTrip'
+import ModalUser from '../model/ModalUser'
 
 class Profile extends Component {
 
@@ -437,7 +437,7 @@ class Profile extends Component {
 
                 </View>
 
-                <Modaltrip ismodalshow={this.state.ismodalshow}
+                <ModalUser ismodalshow={this.state.ismodalshow}
                     closemodal={this.closeModal} />
 
                 <View style={{

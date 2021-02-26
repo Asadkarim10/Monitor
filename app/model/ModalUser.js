@@ -15,7 +15,7 @@ import { restAction, API_CONTS, storeData } from "../actions/constant";
 import { callAPI, updateAPIConfig } from "../api";
 import { validateLogin, update, authUser } from "../actions/authAction";
 
-const Modaltrip = (props) => {
+const ModalUser = (props) => {
 
   const [name, setName] = useState(null)
   const [phone, setPhone] = useState(null)
@@ -110,12 +110,17 @@ const Modaltrip = (props) => {
                     width: wp('80%'),
                     height: 50,
                     marginTop: 30,
-                    alignSelf: "center"
+                    alignSelf: "center",
+                    justifyContent: 'center',
+                    alignItems: "center",
                   }}>
                     <View style={{
                       width: wp('80%'),
                       backgroundColor: 'white',
                       height: 50,
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                      alignItems: "center",
                     }}>
                       <TextInput
                         placeholderTextColor='#707070'
@@ -285,4 +290,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Modaltrip);
+)(ModalUser);

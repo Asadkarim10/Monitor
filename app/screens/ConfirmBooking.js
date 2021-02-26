@@ -8,7 +8,7 @@ import { Calendar } from 'react-native-calendars';
 
 import Moment from 'react-moment';
 import ImageShow from '../components/ImageShow';
-import { getsinglevehicle } from "../actions/vehicleAction"
+import { getsinglevehicle ,getbooking} from "../actions/vehicleAction"
 import { restAction, API_CONTS, storeData } from "../actions/constant";
 import { callAPI, updateAPIConfig } from "../api";
 import RestDialogBox from "../components/RestDialogBox";
@@ -22,7 +22,7 @@ class ConfirmBooking extends Component {
         }
     }
 
-    loginClick = () => {
+    ConfirmBooking = () => {
         try {
             const restInit = {
                 IS_LOADING: true,
@@ -49,6 +49,7 @@ class ConfirmBooking extends Component {
                         endDate_at: "",
                     })
                     this.props.navigation.navigate("Successful")
+                    this.props.getbooking({})
                 }
 
             });
@@ -353,7 +354,7 @@ class ConfirmBooking extends Component {
                     justifyContent: 'center',
                     alignSelf: 'center',
                 }}>
-                    <TouchableOpacity onPress={() => { this.loginClick() }}
+                    <TouchableOpacity onPress={() => { this.ConfirmBooking() }}
                         style={{
                             height: 50,
                             width: wp('45%'),
@@ -389,6 +390,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     restAction: payload => dispatch(restAction(payload)),
+    getbooking: (payload) => dispatch(getbooking(payload))
 });
 
 export default connect(

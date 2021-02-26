@@ -39,12 +39,14 @@ const Header = (props) => {
                 <View style={{
                     marginRight:11
                 }}>
+                    <TouchableOpacity onPress={() => props.navigation.navigate("Profile")}> 
                     <Image style={{
                         width: 38,
                         height: 35,
                     }}
                         source={require('../assets/Homepage/Profile.png')}
                     />
+                    </TouchableOpacity>
                 </View>
 
             </View>
